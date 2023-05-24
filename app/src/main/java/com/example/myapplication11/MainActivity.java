@@ -52,5 +52,5 @@ public class MainActivity extends AppCompatActivity {
         intent = new Intent(this,LoginActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
-
+    // 나는 이창준
     }}
