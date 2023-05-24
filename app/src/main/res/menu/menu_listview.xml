@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+
+
+    <item android:id="@+id/hacking"
+        android:title="경고! 이사이트가 해킹 당하였습니까?"/>
+    <item android:id="@+id/solve"
+        android:title="변경완료"/>
+
+
+
+
+
+</menu>

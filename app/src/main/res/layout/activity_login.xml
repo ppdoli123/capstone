@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:background="@drawable/background_1">
+
+    <EditText
+        android:id="@+id/editid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="240dp"
+        android:ems="10"
+        android:hint="아이디입력"
+        android:background="@drawable/edittextshape"
+        android:inputType="textPersonName"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editpassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editid"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edittextshape"
+        android:ems="10"
+        android:textStyle="bold"
+        android:hint="비밀번호입력"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/buttonFingerprint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/newid"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/buttonshape"
+        android:gravity="center"
+        android:onClick="fingerprint"
+        android:padding="20dp"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="지문 인증하기"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/newid"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/editpassword"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="114dp"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="회원가입"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+        android:layout_alignTop="@id/newid"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="0dp"
+        android:layout_toRightOf="@id/newid"
+        android:background="@drawable/buttonshape"
+        android:onClick="login"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="로그인"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+</RelativeLayout>
