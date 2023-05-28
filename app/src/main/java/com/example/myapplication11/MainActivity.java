@@ -2,9 +2,14 @@ package com.example.myapplication11;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 import android.os.Bundle;
@@ -48,6 +53,29 @@ public class MainActivity extends AppCompatActivity {
                     //    Log.d("Firestore", "컬렉션 개수: " + count);
                    // }
                 //});
+        homeFragment = new HomeFragment();
+        settingFragment = new SettingFragment();
+        profileFragment = new ProfileFragment();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,homeFragment).commit();
+        NavigationBarView navigationBarView = findViewById(R.id.bottomNav);
+        navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.homeFragment:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,homeFragment).commit();
+                        return true;
+                    case R.id.profileFragment:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,profileFragment).commit();
+                        return true;
+                    case R.id.settingFragment:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,settingFragment).commit();
+                        return true;
+                }
+                return false;
+            }
+        });
     }
     public void logout(View target){
         Bundle bundle = new Bundle();
