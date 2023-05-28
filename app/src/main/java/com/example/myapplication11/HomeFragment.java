@@ -7,6 +7,11 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.api.Distribution;
+
+import org.eazegraph.lib.charts.BarChart;
+import org.eazegraph.lib.models.BarModel;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
@@ -54,10 +59,38 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    BarChart chart2;
+
+    public void initView(View v){
+
+        chart2 = (BarChart)v.findViewById(R.id.tab1_chart_2);
+
+    }
+
+
+    // 막대 차트 설정
+    private void setBarChart() {
+
+        chart2.clearChart();
+
+        chart2.addBar(new BarModel("12", 10f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("13", 10f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("14", 10f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("15", 20f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("16", 10f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("17", 10f, 0xFF56B7F1));
+
+        chart2.startAnimation();
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        /*initView(container);
+        setBarChart();*/
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
+
 }

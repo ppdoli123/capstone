@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity"
-    android:background="@drawable/background_3">
+    tools:context=".MainActivity">
 
     <Button
         android:id="@+id/btnlogout"
@@ -14,18 +13,6 @@
         android:rotationX="0"
         android:onClick="logout"
         android:text="로그아웃" />
-
-    <TextView
-        android:id="@+id/tv_ID"
-        android:layout_width="100dp"
-        android:layout_height="200dp"
-        android:text="ID" />
-
-    <TextView
-        android:id="@+id/tv_PASS"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:text="Pass" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
