@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,5 +14,34 @@
         android:rotationX="0"
         android:onClick="logout"
         android:text="로그아웃" />
+
+    <TextView
+        android:id="@+id/tv_ID"
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        android:text="ID" />
+
+    <TextView
+        android:id="@+id/tv_PASS"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:text="Pass" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/my_navy" />
+    <!--이창준 브랜치 생성중-->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:background="@color/white"
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_menu" />
+
 
 </RelativeLayout>

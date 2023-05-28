@@ -26,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     Intent intent;
 
+    HomeFragment homeFragment;
+    SettingFragment settingFragment;
+    ProfileFragment profileFragment;
+
 // Firebase 초기화
     @Override
     protected void onCreate(Bundle savedInstanceState) {
