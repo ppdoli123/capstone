@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.myapplication11.databinding.FragmentHomeBinding;
 import com.google.api.Distribution;
 
 import org.eazegraph.lib.charts.BarChart;
@@ -18,6 +19,8 @@ import org.eazegraph.lib.models.BarModel;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+
+    private FragmentHomeBinding binding;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +61,7 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    // 그래프 연동
     BarChart chart2;
 
     public void initView(View v){
@@ -72,10 +75,10 @@ public class HomeFragment extends Fragment {
     private void setBarChart() {
 
         chart2.clearChart();
-
+        // value에 값을 넣으면 됌
         chart2.addBar(new BarModel("12", 10f, 0xFF56B7F1));
         chart2.addBar(new BarModel("13", 10f, 0xFF56B7F1));
-        chart2.addBar(new BarModel("14", 10f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("14", 20f, 0xFF56B7F1));
         chart2.addBar(new BarModel("15", 20f, 0xFF56B7F1));
         chart2.addBar(new BarModel("16", 10f, 0xFF56B7F1));
         chart2.addBar(new BarModel("17", 10f, 0xFF56B7F1));
@@ -88,9 +91,12 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        /*initView(container);
-        setBarChart();*/
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+        initView(root);
+        setBarChart();
+        return root;
+        //return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
 }
