@@ -2,10 +2,12 @@ package com.example.myapplication11;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Button button=findViewById(R.id.login);
         Button button2=findViewById(R.id.newid);
-        Button button3=findViewById(R.id.buttonFingerprint);
+        ImageButton button3=findViewById(R.id.buttonFingerprint);
         //지문인식 메소드 실행
         executor = ContextCompat.getMainExecutor(this);
         biometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
