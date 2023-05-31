@@ -36,6 +36,9 @@
             android:name=".Signup_preferenceActivity2">
         </activity>
         <activity
+            android:name=".secondsearch">
+        </activity>
+        <activity
             android:name=".thirdsearch">
         </activity>
         <!--<activity
