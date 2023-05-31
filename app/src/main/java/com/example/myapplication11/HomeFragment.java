@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
@@ -66,6 +68,7 @@ public class HomeFragment extends Fragment {
     }
     // 그래프 연동
     BarChart chart2;
+    ImageButton button_secondsearch;
 
     public void initView(View v){
 
@@ -107,6 +110,15 @@ public class HomeFragment extends Fragment {
         });
         initView(root);
         setBarChart();
+
+        button_secondsearch = root.findViewById(R.id.button_secondsearch);
+        button_secondsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(),secondsearch.class);
+                startActivity(intent);
+            }
+        });
 
         return root;
         //return inflater.inflate(R.layout.fragment_home, container, false);
