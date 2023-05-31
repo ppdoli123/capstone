@@ -1,9 +1,12 @@
 package com.example.myapplication11;
 
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 
@@ -87,16 +90,27 @@ public class HomeFragment extends Fragment {
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        ImageView image1=root.findViewById(R.id.image1);
+        image1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(),thirdsearch.class);
+                startActivity(intent);
+            }
+        });
         initView(root);
         setBarChart();
+
         return root;
         //return inflater.inflate(R.layout.fragment_home, container, false);
     }
+
 
 }

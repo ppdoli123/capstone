@@ -73,6 +73,7 @@
                 android:gravity="center"
                 android:layout_marginHorizontal="5dp">
                 <ImageView
+                    android:id="@+id/image1"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/ic_person"/>
