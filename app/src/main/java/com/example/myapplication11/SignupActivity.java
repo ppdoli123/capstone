@@ -24,6 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
+    public String documentId;
+
     private ContextDatabase mydb;
     int num = 0;
     @Override
@@ -32,7 +34,6 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         //이름,id,password 주소값 가져오기.
         EditText name=findViewById(R.id.signup_name);
-        EditText id=findViewById(R.id.signup_id);
         EditText pw=findViewById(R.id.signup_pw);
         EditText email=findViewById(R.id.signup_email);
         EditText pw_check=findViewById(R.id.signup_pw_check);
@@ -55,12 +56,11 @@ public class SignupActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         String username = name.getText().toString();
-                        String userid = id.getText().toString();
                         String userpw = pw.getText().toString();
                         String useremail = email.getText().toString();
                         String userpw_check = pw_check.getText().toString();
                         //이름,id,password의 입력칸이 하나라도 비었을시 알림이 뜸.
-                        if (username.equals("") || userid.equals("") || userpw.equals("") || useremail.equals("") || userpw_check.equals("")) {
+                        if (username.equals("") ||  userpw.equals("") || useremail.equals("") || userpw_check.equals("")) {
                             AlertDialog.Builder dialog = new AlertDialog.Builder(SignupActivity.this);
                             dialog.setIcon(R.mipmap.ic_launcher);
                             dialog.setTitle("알림");
@@ -72,14 +72,16 @@ public class SignupActivity extends AppCompatActivity {
                         else {
                             if (userpw.equals(userpw_check)) {
                                 Map<String, Object> user = new HashMap<>();
-                                user.put("userid", userid);
+                                user.put("useremail", useremail);
                                 user.put("username", username);
                                 user.put("password", userpw);
-                                db.collection("information")
-                                        .add(user);
-
+                                db.collection("users")
+                                        .add(user)
+                                        .addOnSuccessListener(documentReference -> {
+                                         documentId = documentReference.getId();
                                 Intent intent = new Intent(getApplicationContext(), Signup_preferenceActivity.class);
-                                startActivity(intent);
+                                intent.putExtra("documentId", documentId);
+                                startActivity(intent);});
                             } else {
 
                                 AlertDialog.Builder dialog = new AlertDialog.Builder(SignupActivity.this);
