@@ -9,7 +9,6 @@ import android.widget.CheckedTextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -17,7 +16,6 @@ import java.util.Map;
 
 public class Signup_preferenceActivity2 extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    SignupActivity sign=new SignupActivity();
 
     // 데이터 생성
     @Override
@@ -64,11 +62,7 @@ public class Signup_preferenceActivity2 extends AppCompatActivity {
                 if (ckdTv3.isChecked()) {
                     user.put("user_preference_2", "0");
                 }
-
                 db.collection("users").document(documentId).update(user);
-
-
-
                 Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
             }

@@ -8,8 +8,6 @@ import android.widget.CheckedTextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -24,6 +22,7 @@ public class Signup_preferenceActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup2);
+
         String documentId = getIntent().getStringExtra("documentId");
         CheckedTextView ckdTv1 = findViewById(R.id.ckdTv1);
         CheckedTextView ckdTv2 = findViewById(R.id.ckdTv2);
@@ -64,9 +63,6 @@ public class Signup_preferenceActivity extends AppCompatActivity {
                     user.put("user_preference_1", "0");
                 }
                 db.collection("users").document(documentId).update(user);
-
-
-
                 Intent intent=new Intent(getApplicationContext(),Signup_preferenceActivity2.class);
                 intent.putExtra("documentId", documentId);
                 startActivity(intent);

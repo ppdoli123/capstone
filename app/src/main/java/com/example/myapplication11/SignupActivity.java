@@ -25,6 +25,7 @@ import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
     public String documentId;
+
     private ContextDatabase mydb;
     int num = 0;
     @Override
@@ -59,7 +60,7 @@ public class SignupActivity extends AppCompatActivity {
                         String useremail = email.getText().toString();
                         String userpw_check = pw_check.getText().toString();
                         //이름,id,password의 입력칸이 하나라도 비었을시 알림이 뜸.
-                        if (username.equals("") || userpw.equals("") || useremail.equals("") || userpw_check.equals("")) {
+                        if (username.equals("") ||  userpw.equals("") || useremail.equals("") || userpw_check.equals("")) {
                             AlertDialog.Builder dialog = new AlertDialog.Builder(SignupActivity.this);
                             dialog.setIcon(R.mipmap.ic_launcher);
                             dialog.setTitle("알림");
