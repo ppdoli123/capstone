@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinner">
+        <item>로션</item>
+        <item>스킨</item>
+        <item>토너</item>
+    </string-array>
+</resources>

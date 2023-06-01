@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 
@@ -120,9 +122,14 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Spinner
+        Spinner yearSpinner = (Spinner)root.findViewById(R.id.spinner);
+        ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
+                R.array.spinner, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        yearSpinner.setAdapter(spinnerAdapter);
+
         return root;
         //return inflater.inflate(R.layout.fragment_home, container, false);
     }
-
-
 }
