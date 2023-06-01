@@ -1,6 +1,7 @@
 package com.example.myapplication11;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,15 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String text = arrayList.get(position);
         holder.itemtitle_secondsearch.setText(text);
+        holder.itemimage_secondsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int mPosition = holder.getAdapterPosition();
+                Context context = view.getContext();
+                Intent thirdsearch = new Intent(context, thirdsearch.class);
+                ((secondsearch)context).startActivity(thirdsearch);
+            }
+        });
     }
 
     @Override
