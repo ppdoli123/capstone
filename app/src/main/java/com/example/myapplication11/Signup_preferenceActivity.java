@@ -9,6 +9,7 @@ import android.widget.CheckedTextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -23,7 +24,7 @@ public class Signup_preferenceActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup2);
-
+        String documentId = getIntent().getStringExtra("documentId");
         CheckedTextView ckdTv1 = findViewById(R.id.ckdTv1);
         CheckedTextView ckdTv2 = findViewById(R.id.ckdTv2);
         CheckedTextView ckdTv3 = findViewById(R.id.ckdTv3);
@@ -48,6 +49,7 @@ public class Signup_preferenceActivity extends AppCompatActivity {
         ckdTv2.setOnClickListener(listner);
         ckdTv3.setOnClickListener(listner);
         Button button7=findViewById(R.id.button7);
+
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,10 +63,12 @@ public class Signup_preferenceActivity extends AppCompatActivity {
                 if (ckdTv3.isChecked()) {
                     user.put("user_preference_1", "0");
                 }
-                db.collection("information")
-                        .add(user);
+                db.collection("users").document(documentId).update(user);
+
+
 
                 Intent intent=new Intent(getApplicationContext(),Signup_preferenceActivity2.class);
+                intent.putExtra("documentId", documentId);
                 startActivity(intent);
             }
         });

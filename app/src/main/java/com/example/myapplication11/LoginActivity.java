@@ -1,33 +1,46 @@
 package com.example.myapplication11;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.concurrent.Executor;
 
+
 public class LoginActivity extends AppCompatActivity {
-    private ContextDatabase mydb;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore mFirestore;
     private Executor executor;
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
+    EditText userid, userpw;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Button button=findViewById(R.id.login);
-        Button button2=findViewById(R.id.newid);
-        Button button3=findViewById(R.id.buttonFingerprint);
-        //지문인식 메소드 실행
+        Button button = findViewById(R.id.login);
+        mFirestore = FirebaseFirestore.getInstance();
+        Button button2 = findViewById(R.id.newid);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        // 지문인식 메소드 실행
         executor = ContextCompat.getMainExecutor(this);
         biometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
@@ -41,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                     @NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
                 Toast.makeText(getApplicationContext(), "인증성공!", Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
 
@@ -62,44 +75,47 @@ public class LoginActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),SignupActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivity(intent);
-
             }
         });
-    } //id가 button 인 Sign in 버튼의 onClick에 login을 써줌.
-    public void fingerprint(View v){
-        biometricPrompt.authenticate(promptInfo);
+
+        userid = findViewById(R.id.editid);
+        userpw = findViewById(R.id.editpassword);
+        // 로그인 함수
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String email = userid.getText().toString();
+                String password = userpw.getText().toString();
+
+                // Firestore에서 이메일과 비밀번호 확인
+                mFirestore.collection("users")
+                        .whereEqualTo("useremail", email)
+                        .whereEqualTo("password", password)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                                    // 로그인 성공
+                                    Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    // 로그인 실패
+                                    Toast.makeText(getApplicationContext(), "로그인에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
             }
-    // 로그인 함수
-    public void login(View v){
-        EditText userid=findViewById(R.id.editid);
-        EditText userpw=findViewById(R.id.editpassword);
-
-        //회원가입창에서 받은 데이터를 여기에 넘겨줌
-        Cursor rs = mydb.getData(userid.getText().toString());
-        rs.moveToFirst();
-        int intid = rs.getColumnIndex(ContextDatabase.Context_ID);
-        int intpassword = rs.getColumnIndex(ContextDatabase.Context_PASSWORD);
-        int intname = rs.getColumnIndex(ContextDatabase.Context_NAME);
-        String strid = rs.getString(intid);
-        String strpassword = rs.getString(intpassword);
-        String strname = rs.getString(intname);
-        //아이디 비밀번호 일치일때는 메인 화면에 진입. 불일치시 토스트 메시지.
-        if(userid.equals(strid))
-        { if(userpw.equals(strpassword)){
-
-            Intent intent=new Intent(getApplicationContext(),MainActivity.class);
-            Toast.makeText(this,strname+"님 안녕하세요.",Toast.LENGTH_SHORT).show();
-            startActivity(intent);
-
-        }
-            else{ Toast.makeText(getApplicationContext(),"아이디 혹은 비밀번호가 일치하지 않습니다",Toast.LENGTH_SHORT).show();
-        } }
-        else{ Toast.makeText(getApplicationContext(),"아이디 혹은 비밀번호가 일치하지 않습니다",Toast.LENGTH_SHORT).show();
-        }
+        });
     }
-}
+
+    // 지문 인증 버튼 클릭 이벤트
+    public void fingerprint(View v) {
+        biometricPrompt.authenticate(promptInfo);
+    }
 
 
 
+    }
