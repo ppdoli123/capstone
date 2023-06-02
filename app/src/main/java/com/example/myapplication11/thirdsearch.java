@@ -5,10 +5,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.FirebaseApp;
@@ -65,6 +68,11 @@ public class thirdsearch extends AppCompatActivity {
 
     }
 
+    RecyclerView recyclerView;
+    Adapter2 adapter;
+
+    Button button;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,5 +82,25 @@ public class thirdsearch extends AppCompatActivity {
         chart2 = (BarChart) findViewById(R.id.tab1_chart_2);
         setBarChart();
         setPieChart();
+
+        recyclerView=(RecyclerView) findViewById(R.id.recycle_thirdsearch);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
+
+        adapter= new Adapter2();
+        for (int i =0; i<10;i++){
+            String str = i+"번째 아이템";
+            adapter.setArrayList(str);
+        }
+        recyclerView.setAdapter(adapter);
+
+        button=(Button) findViewById(R.id.allreview);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), TotalReviewActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
 }
