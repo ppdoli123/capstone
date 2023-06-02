@@ -23,7 +23,7 @@ public class Signup_preferenceActivity2 extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup3);
-
+        String documentId = getIntent().getStringExtra("documentId");
         CheckedTextView ckdTv1 = findViewById(R.id.ckdTv1);
         CheckedTextView ckdTv2 = findViewById(R.id.ckdTv2);
         CheckedTextView ckdTv3 = findViewById(R.id.ckdTv3);
@@ -48,6 +48,7 @@ public class Signup_preferenceActivity2 extends AppCompatActivity {
         ckdTv2.setOnClickListener(listner);
         ckdTv3.setOnClickListener(listner);
         Button button7=findViewById(R.id.button7);
+
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,9 +62,7 @@ public class Signup_preferenceActivity2 extends AppCompatActivity {
                 if (ckdTv3.isChecked()) {
                     user.put("user_preference_2", "0");
                 }
-                db.collection("information")
-                        .add(user);
-
+                db.collection("users").document(documentId).update(user);
                 Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
             }

@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     SettingFragment settingFragment;
     ProfileFragment profileFragment;
 
-// Firebase 초기화
+    // Firebase 초기화
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,14 +45,14 @@ public class MainActivity extends AppCompatActivity {
         // 데이터베이스 오프라인 기능 활성화 (선택 사항)
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         //db.collection("user")
-          //      .get()
-            //    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-              //      @Override
-                //    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                  //      int count = queryDocumentSnapshots.size();
-                    //    Log.d("Firestore", "컬렉션 개수: " + count);
-                   // }
-                //});
+        //      .get()
+        //    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        //      @Override
+        //    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+        //      int count = queryDocumentSnapshots.size();
+        //    Log.d("Firestore", "컬렉션 개수: " + count);
+        // }
+        //});
         homeFragment = new HomeFragment();
         settingFragment = new SettingFragment();
         profileFragment = new ProfileFragment();
@@ -84,6 +84,6 @@ public class MainActivity extends AppCompatActivity {
         intent = new Intent(this,LoginActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
-    // 창준
+        // 창준
 
     }}
