@@ -246,6 +246,19 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="이 상품에 리뷰 키워드와 비슷한 제품 추천" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle_thirdsearch"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="20dp"/>
         </LinearLayout>
     </ScrollView>
 

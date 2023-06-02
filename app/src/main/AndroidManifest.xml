@@ -46,6 +46,13 @@
         <activity
             android:name=".thirdsearch">
         </activity>
+        <activity
+            android:name=".TotalReviewActivity">
+        </activity>
+        <!--<activity
+            android:name=".MainActivity"
+            android:exported="true">
+        </activity>-->
 
     </application>
 
