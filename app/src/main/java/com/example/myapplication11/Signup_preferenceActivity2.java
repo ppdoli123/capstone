@@ -59,6 +59,15 @@ public class Signup_preferenceActivity2 extends AppCompatActivity {
                 if (ckdTv2.isChecked()) {
                     user.put("user_preference_2", "건성");
                 }
+                if (ckdTv2.isChecked()) {
+                    user.put("user_preference_2", "복합성");
+                }
+                if (ckdTv2.isChecked()) {
+                    user.put("user_preference_2", "민감성");
+                }
+                if (ckdTv2.isChecked()) {
+                    user.put("user_preference_2", "중성");
+                }
                 if (ckdTv3.isChecked()) {
                     user.put("user_preference_2", "0");
                 }
