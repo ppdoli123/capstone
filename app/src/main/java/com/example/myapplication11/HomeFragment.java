@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication11.databinding.FragmentHomeBinding;
 import com.google.api.Distribution;
@@ -95,6 +97,9 @@ public class HomeFragment extends Fragment {
 
     }
 
+    RecyclerView recyclerView;
+    Adapter4 adapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,14 +107,17 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        ImageView image1=root.findViewById(R.id.image1);
-        image1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getActivity(),thirdsearch.class);
-                startActivity(intent);
-            }
-        });
+
+        recyclerView=(RecyclerView) root.findViewById(R.id.recycle_mainsearch);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+
+        adapter= new Adapter4();
+        for (int i =0; i<10;i++){
+            String str = i+"번째 아이템";
+            adapter.setArrayList(str);
+        }
+        recyclerView.setAdapter(adapter);
+
         initView(root);
         setBarChart();
 
