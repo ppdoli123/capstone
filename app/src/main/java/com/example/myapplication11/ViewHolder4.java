@@ -15,10 +15,10 @@ class ViewHolder4 extends RecyclerView.ViewHolder {
     ViewHolder4(Context context, View itemView){
         super(itemView);
 
-        itemimage_thirdsearch= itemView.findViewById(R.id.itemimage_thirdsearch);
-        itemtitle_thirdsearch= itemView.findViewById(R.id.itemtitle_thirdsearch);
-        score_thirdsearch= itemView.findViewById(R.id.score_thirdsearch);
-        star_thirdsearch= itemView.findViewById(R.id.star_thirdsearch);
+        itemimage_thirdsearch= itemView.findViewById(R.id.itemimage_preference);
+        itemtitle_thirdsearch= itemView.findViewById(R.id.itemtitle_preference);
+        score_thirdsearch= itemView.findViewById(R.id.score_preference);
+        star_thirdsearch= itemView.findViewById(R.id.star_preference);
 
     }
 }
