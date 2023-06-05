@@ -40,7 +40,7 @@ public class Adapter4 extends RecyclerView.Adapter<ViewHolder4> {
                 int mPosition = holder.getAdapterPosition();
                 Context context = view.getContext();
                 Intent thirdsearch = new Intent(context, thirdsearch.class);
-                ((thirdsearch)context).startActivity(thirdsearch);
+                (context).startActivity(thirdsearch);
             }
         });
     }
