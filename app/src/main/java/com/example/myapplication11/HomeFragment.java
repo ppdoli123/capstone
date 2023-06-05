@@ -1,15 +1,12 @@
 package com.example.myapplication11;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
@@ -17,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication11.databinding.FragmentHomeBinding;
-import com.google.api.Distribution;
 
 import org.eazegraph.lib.charts.BarChart;
 import org.eazegraph.lib.models.BarModel;
@@ -98,7 +94,7 @@ public class HomeFragment extends Fragment {
     }
 
     RecyclerView recyclerView;
-    Adapter4 adapter;
+    Adapter_main adapter;
 
 
     @Override
@@ -111,7 +107,7 @@ public class HomeFragment extends Fragment {
         recyclerView=(RecyclerView) root.findViewById(R.id.recycle_mainsearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
 
-        adapter= new Adapter4();
+        adapter= new Adapter_main();
         for (int i =0; i<10;i++){
             String str = i+"번째 아이템";
             adapter.setArrayList(str);

@@ -11,27 +11,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class Adapter4 extends RecyclerView.Adapter<ViewHolder4> {
+// 메인화면 리뷰 토픽 리사이클러뷰 어답터
+
+public class Adapter_main extends RecyclerView.Adapter<ViewHolder_main> {
     private ArrayList<String> arrayList;
 
-    public Adapter4() {
+    public Adapter_main() {
         arrayList = new ArrayList<>();
 
     }
 
     @NonNull
     @Override
-    public ViewHolder4 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder_main onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        // thirdsearch에서 비슷한 상품 추천시 사용되는 리사이클러뷰와 동일해서 item_List2 사용
         View view = inflater.inflate(R.layout.item_list2, parent, false);
 
-        ViewHolder4 viewHolder4 = new ViewHolder4(context, view);
-        return viewHolder4;
+        ViewHolder_main viewHolderMain = new ViewHolder_main(context, view);
+        return viewHolderMain;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder4 holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder_main holder, int position) {
         String text = arrayList.get(position);
         holder.itemtitle_thirdsearch.setText(text);
         holder.itemimage_thirdsearch.setOnClickListener(new View.OnClickListener() {

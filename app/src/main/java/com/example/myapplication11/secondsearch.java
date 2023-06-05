@@ -1,37 +1,22 @@
 package com.example.myapplication11;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.eazegraph.lib.charts.BarChart;
-import org.eazegraph.lib.charts.PieChart;
-import org.eazegraph.lib.models.BarModel;
-import org.eazegraph.lib.models.PieModel;
-
-import java.util.ArrayList;
-
-
+// 제품 태그검색시 나오는 페이지 adapter과 viewholder 사용
 public class secondsearch extends AppCompatActivity {
     private ListView ListView1;
     private FirebaseFirestore db;
     Intent intent;
     RecyclerView recyclerView;
-    Adapter adapter;
+    Adapter_secondsearch adapterSecondsearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +26,12 @@ public class secondsearch extends AppCompatActivity {
         recyclerView=(RecyclerView) findViewById(R.id.recycle_secondsearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
 
-        adapter= new Adapter();
+        adapterSecondsearch = new Adapter_secondsearch();
         for (int i =0; i<10;i++){
             String str = i+"번째 아이템";
-            adapter.setArrayList(str);
+            adapterSecondsearch.setArrayList(str);
         }
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapterSecondsearch);
     }
 }
 

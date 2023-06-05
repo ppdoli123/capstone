@@ -8,11 +8,11 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-class ViewHolder2 extends RecyclerView.ViewHolder {
+class ViewHolder_thirdsearch extends RecyclerView.ViewHolder {
     public TextView itemtitle_thirdsearch , itemtag_thirdsearch , score_thirdsearch;
     public ImageView itemimage_thirdsearch , star_thirdsearch;
 
-    ViewHolder2(Context context, View itemView){
+    ViewHolder_thirdsearch(Context context, View itemView){
         super(itemView);
 
         itemimage_thirdsearch= itemView.findViewById(R.id.itemimage_thirdsearch);
