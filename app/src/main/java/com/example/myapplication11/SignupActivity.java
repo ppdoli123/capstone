@@ -26,7 +26,6 @@ import java.util.Map;
 public class SignupActivity extends AppCompatActivity {
     public String documentId;
 
-    private ContextDatabase mydb;
     int num = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
