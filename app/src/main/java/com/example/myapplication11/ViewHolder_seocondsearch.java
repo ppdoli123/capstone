@@ -8,11 +8,11 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-class ViewHolder extends RecyclerView.ViewHolder {
+class ViewHolder_seocondsearch extends RecyclerView.ViewHolder {
     public TextView itemtitle_secondsearch , itemtag_secondsearch , score_secondsearch;
     public ImageView itemimage_secondsearch , star_secondsearch;
 
-    ViewHolder(Context context, View itemView){
+    ViewHolder_seocondsearch(Context context, View itemView){
         super(itemView);
 
         itemimage_secondsearch= itemView.findViewById(R.id.itemimage_secondsearch);

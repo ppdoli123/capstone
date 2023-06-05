@@ -11,36 +11,36 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class Adapter2 extends RecyclerView.Adapter<ViewHolder2> {
+public class Adapter_secondsearch extends RecyclerView.Adapter<ViewHolder_seocondsearch> {
     private ArrayList<String> arrayList;
 
-    public Adapter2() {
+    public Adapter_secondsearch() {
         arrayList = new ArrayList<>();
 
     }
 
     @NonNull
     @Override
-    public ViewHolder2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder_seocondsearch onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.item_list2, parent, false);
+        View view = inflater.inflate(R.layout.item_list, parent, false);
 
-        ViewHolder2 viewHolder2 = new ViewHolder2(context, view);
-        return viewHolder2;
+        ViewHolder_seocondsearch viewHolderSeocondsearchSearch = new ViewHolder_seocondsearch(context, view);
+        return viewHolderSeocondsearchSearch;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder2 holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder_seocondsearch holder, int position) {
         String text = arrayList.get(position);
-        holder.itemtitle_thirdsearch.setText(text);
-        holder.itemimage_thirdsearch.setOnClickListener(new View.OnClickListener() {
+        holder.itemtitle_secondsearch.setText(text);
+        holder.itemimage_secondsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int mPosition = holder.getAdapterPosition();
                 Context context = view.getContext();
                 Intent thirdsearch = new Intent(context, thirdsearch.class);
-                ((thirdsearch)context).startActivity(thirdsearch);
+                ((secondsearch)context).startActivity(thirdsearch);
             }
         });
     }
