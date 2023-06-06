@@ -18,6 +18,10 @@ import com.example.myapplication11.databinding.FragmentHomeBinding;
 import org.eazegraph.lib.charts.BarChart;
 import org.eazegraph.lib.models.BarModel;
 
+import java.util.List;
+import android.widget.AutoCompleteTextView;
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
@@ -93,6 +97,17 @@ public class HomeFragment extends Fragment {
 
     }
 
+    // 연관 검색 바 설정
+    private List<String> list;
+    private void settingList(){
+        list.add("촉촉한");
+        list.add("수분감");
+        list.add("보송한");
+        list.add("시원한");
+        list.add("상쾌한");
+        list.add("waterful");
+    }
+
     RecyclerView recyclerView;
     Adapter_main adapter;
 
@@ -104,6 +119,20 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        // 얀관검색창
+        list = new ArrayList<String>();
+
+        // 리스트에 검색될 데이터(단어)를 추가한다.
+        settingList();
+
+        final AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) root.findViewById(R.id.autoCompleteTextView);
+
+        // AutoCompleteTextView 에 아답터를 연결한다.
+        autoCompleteTextView.setAdapter(new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_dropdown_item_1line,  list ));
+
+        // 리사이클러뷰
+
         recyclerView=(RecyclerView) root.findViewById(R.id.recycle_mainsearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
 
@@ -114,9 +143,11 @@ public class HomeFragment extends Fragment {
         }
         recyclerView.setAdapter(adapter);
 
+        // 바차트 생성
         initView(root);
         setBarChart();
 
+        // 검색 버튼
         button_secondsearch = root.findViewById(R.id.button_secondsearch);
         button_secondsearch.setOnClickListener(new View.OnClickListener() {
             @Override
