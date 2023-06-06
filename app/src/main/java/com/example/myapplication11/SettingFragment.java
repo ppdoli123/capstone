@@ -6,6 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myapplication11.databinding.FragmentHomeBinding;
+import com.example.myapplication11.databinding.FragmentSettingBinding;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -13,6 +20,8 @@ import androidx.fragment.app.Fragment;
  * create an instance of this fragment.
  */
 public class SettingFragment extends Fragment {
+
+    private FragmentSettingBinding binding;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -54,10 +63,28 @@ public class SettingFragment extends Fragment {
         }
     }
 
+    RecyclerView recyclerView;
+    Adapter_community adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        // 리사이클러뷰
+        binding = FragmentSettingBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+        recyclerView=(RecyclerView) root.findViewById(R.id.content_community);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
+
+        adapter= new Adapter_community();
+        for (int i =0; i<10;i++){
+            String str = i+"번째 아이템";
+            adapter.setArrayList(str);
+        }
+        recyclerView.setAdapter(adapter);
+
+        return root;
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_setting, container, false);
+        //return inflater.inflate(R.layout.fragment_setting, container, false);
     }
 }

@@ -5,13 +5,23 @@
     android:layout_height="match_parent"
     tools:context=".SettingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:text="Setting" />
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="자유 게시판"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/content_community"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 
 </FrameLayout>
