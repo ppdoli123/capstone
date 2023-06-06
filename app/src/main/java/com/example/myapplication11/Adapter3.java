@@ -1,7 +1,6 @@
 package com.example.myapplication11;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,7 @@ public class Adapter3 extends RecyclerView.Adapter<ViewHolder3> {
     public ViewHolder3 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.item_list3, parent, false);
+        View view = inflater.inflate(R.layout.item_list_showreview, parent, false);
 
         ViewHolder3 viewHolder3 = new ViewHolder3(context, view);
         return viewHolder3;
