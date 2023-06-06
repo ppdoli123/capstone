@@ -31,12 +31,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         FirebaseApp.initializeApp(this);
         db = FirebaseFirestore.getInstance();
+        // userDocumentName 가져오기
+        String userDocumentName = getIntent().getStringExtra("userDocumentName");
 
         homeFragment = new HomeFragment();
+        Bundle homeArgs = new Bundle();
+        homeArgs.putString("userDocumentName", userDocumentName);
+        homeFragment.setArguments(homeArgs);
+
         settingFragment = new SettingFragment();
         profileFragment = new ProfileFragment();
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,homeFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, homeFragment).commit();
         NavigationBarView navigationBarView = findViewById(R.id.bottomNav);
         navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

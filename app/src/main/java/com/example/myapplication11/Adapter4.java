@@ -5,53 +5,72 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
+import java.util.List;
 
-public class Adapter4 extends RecyclerView.Adapter<ViewHolder4> {
-    private ArrayList<String> arrayList;
+public class Adapter4 extends RecyclerView.Adapter<Adapter4.ViewHolder> {
+    private List<ProductItem> items = new ArrayList<>();
+    private Context context;
 
-    public Adapter4() {
-        arrayList = new ArrayList<>();
-
+    public void setArrayList(ProductItem item) {
+        items.add(item);
     }
-
+    public void addItem(ProductItem item, String documentName) {
+        item.setDocumentName(documentName);
+        items.add(item);
+    }
     @NonNull
     @Override
-    public ViewHolder4 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.item_list2, parent, false);
-
-        ViewHolder4 viewHolder4 = new ViewHolder4(context, view);
-        return viewHolder4;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list2, parent, false);
+        return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder4 holder, int position) {
-        String text = arrayList.get(position);
-        holder.itemtitle_thirdsearch.setText(text);
-        holder.itemimage_thirdsearch.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ProductItem item = items.get(position);
+        Glide.with(context).load(item.getImageUrl()).into(holder.image);
+        holder.name.setText(item.getName());
+
+        // 이미지 클릭 리스너 추가
+        holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int mPosition = holder.getAdapterPosition();
                 Context context = view.getContext();
-                Intent thirdsearch = new Intent(context, thirdsearch.class);
-                (context).startActivity(thirdsearch);
+                Intent thirdsearchIntent = new Intent(context, thirdsearch.class);
+                thirdsearchIntent.putExtra("documentName", item.getDocumentName());
+                // add imageUrl and name to the intent
+                thirdsearchIntent.putExtra("imageUrl", item.getImageUrl());
+                thirdsearchIntent.putExtra("name", item.getName());
+                context.startActivity(thirdsearchIntent);
             }
         });
     }
 
-
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        return items.size();
     }
 
-    public void setArrayList(String strData) {
-        arrayList.add(strData);
+
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private ImageView image;
+        private TextView name;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            image = itemView.findViewById(R.id.itemimage_thirdsearch);
+            name = itemView.findViewById(R.id.itemtitle_thirdsearch);
+        }
     }
 }
