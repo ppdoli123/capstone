@@ -23,7 +23,7 @@ public class Adapter_totalreview extends RecyclerView.Adapter<ViewHolder_totalre
     public ViewHolder_totalreview onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.item_list3, parent, false);
+        View view = inflater.inflate(R.layout.item_list_showreview, parent, false);
 
         ViewHolder_totalreview viewHolderTotalreview = new ViewHolder_totalreview(context, view);
         return viewHolderTotalreview;

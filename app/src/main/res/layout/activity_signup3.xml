@@ -15,62 +15,67 @@
         android:layout_marginBottom="10dp"
         android:textColor="#009294"/>
 
-    <CheckedTextView
-        android:id="@+id/ckdTv1"
+    <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-        android:gravity="center"
-        android:text="지성" />
+        android:orientation="vertical">
 
-    <CheckedTextView
-        android:id="@+id/ckdTv2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="건성"
-        android:gravity="center"
-        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"/>
-    <CheckedTextView
-        android:id="@+id/ckdTv3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-        android:gravity="center"
-        android:text="복합성" />
-    <CheckedTextView
-        android:id="@+id/ckdTv4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-        android:gravity="center"
-        android:text="민감성" />
-    <CheckedTextView
-        android:id="@+id/ckdTv5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-        android:gravity="center"
-        android:text="중성" />
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:text="지성" />
 
-    <CheckedTextView
-        android:id="@+id/ckdTv6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="잘 모르겠습니다"
-        android:gravity="center"
-        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"/>
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:text="건성" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:text="복합성" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:text="민감성" />
+
+        <RadioButton
+            android:id="@+id/radioButton5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:text="중성" />
+
+        <RadioButton
+            android:id="@+id/radioButton6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:text="잘 모르겠습니다" />
+    </RadioGroup>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

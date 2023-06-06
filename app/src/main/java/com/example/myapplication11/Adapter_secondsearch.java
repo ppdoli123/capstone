@@ -24,7 +24,7 @@ public class Adapter_secondsearch extends RecyclerView.Adapter<ViewHolder_seocon
     public ViewHolder_seocondsearch onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.item_list, parent, false);
+        View view = inflater.inflate(R.layout.item_list_secondsearch, parent, false);
 
         ViewHolder_seocondsearch viewHolderSeocondsearchSearch = new ViewHolder_seocondsearch(context, view);
         return viewHolderSeocondsearchSearch;

@@ -35,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
         Button button = findViewById(R.id.login);
         mFirestore = FirebaseFirestore.getInstance();
         Button button2 = findViewById(R.id.newid);
-
         mAuth = FirebaseAuth.getInstance();
 
         // 지문인식 메소드 실행
@@ -98,6 +97,8 @@ public class LoginActivity extends AppCompatActivity {
                                     // 로그인 성공
                                     Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    String userDocumentName = task.getResult().getDocuments().get(0).getId(); // 문서 이름을 가져옵니다.
+                                    intent.putExtra("userDocumentName", userDocumentName); // MainActivity로 전달합니다.
                                     startActivity(intent);
                                 } else {
                                     // 로그인 실패

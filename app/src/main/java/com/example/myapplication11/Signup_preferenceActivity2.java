@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,59 +27,51 @@ public class Signup_preferenceActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup3);
         String documentId = getIntent().getStringExtra("documentId");
-        CheckedTextView ckdTv1 = findViewById(R.id.ckdTv1);
-        CheckedTextView ckdTv2 = findViewById(R.id.ckdTv2);
-        CheckedTextView ckdTv3 = findViewById(R.id.ckdTv3);
-
-        ckdTv1.setChecked(false);
-        ckdTv2.setChecked(false);
-        ckdTv3.setChecked(false);
-        ckdTv1.setClickable(true);
-        ckdTv2.setClickable(true);
-        ckdTv3.setClickable(true);
-
-
-        View.OnClickListener listner = new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view)
-            {
-                ((CheckedTextView) view).toggle();
-            }};
-
-        ckdTv1.setOnClickListener(listner);
-        ckdTv2.setOnClickListener(listner);
-        ckdTv3.setOnClickListener(listner);
+        RadioGroup radioGroup = findViewById(R.id.radioGroup);
+        RadioButton radioButton1 = findViewById(R.id.radioButton1);
+        RadioButton radioButton2 = findViewById(R.id.radioButton2);
+        RadioButton radioButton3 = findViewById(R.id.radioButton3);
+        RadioButton radioButton4 = findViewById(R.id.radioButton4);
+        RadioButton radioButton5 = findViewById(R.id.radioButton5);
+        RadioButton radioButton6 = findViewById(R.id.radioButton6);
+        Button button6=findViewById(R.id.button6);
         Button button7=findViewById(R.id.button7);
 
+
+        button6.setOnClickListener(new View.OnClickListener() {
+        public void onClick(View v) {
+        Intent intent=new Intent(getApplicationContext(),Signup_preferenceActivity.class);
+        intent.putExtra("documentId", documentId);
+        startActivity(intent);
+        }});
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Map<String, Object> user = new HashMap<>();
-                if (ckdTv1.isChecked()) {
-                    user.put("user_preference_2", "지성");
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+                if (selectedId == -1) {
+                    Toast.makeText(Signup_preferenceActivity2.this, "선택 사항을 선택해 주세요.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Map<String, Object> user = new HashMap<>();
+                    if (selectedId == radioButton1.getId()) {
+                        user.put("user_preference_2", "지성");
+                    } else if (selectedId == radioButton2.getId()) {
+                        user.put("user_preference_2", "건성");
+                    } else if (selectedId == radioButton3.getId()) {
+                        user.put("user_preference_2", "복합성");
+                    }else if (selectedId == radioButton4.getId()) {
+                        user.put("user_preference_2", "민감성");
+                    }else if (selectedId == radioButton5.getId()) {
+                        user.put("user_preference_2", "중성");
+                    }else if (selectedId == radioButton6.getId()) {
+                        user.put("user_preference_2", "");
+                    }
+                    db.collection("users").document(documentId).update(user);
+                    Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
+                    intent.putExtra("documentId", documentId);
+                    startActivity(intent);
                 }
-                if (ckdTv2.isChecked()) {
-                    user.put("user_preference_2", "건성");
-                }
-                if (ckdTv2.isChecked()) {
-                    user.put("user_preference_2", "복합성");
-                }
-                if (ckdTv2.isChecked()) {
-                    user.put("user_preference_2", "민감성");
-                }
-                if (ckdTv2.isChecked()) {
-                    user.put("user_preference_2", "중성");
-                }
-                if (ckdTv3.isChecked()) {
-                    user.put("user_preference_2", "0");
-                }
-                db.collection("users").document(documentId).update(user);
-                Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
+    }});
+}
 }
 
 

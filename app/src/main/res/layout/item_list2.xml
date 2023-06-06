@@ -20,7 +20,7 @@
             android:src="@drawable/ic_person"/>
         <TextView
             android:id="@+id/itemtitle_thirdsearch"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="15dp"
             android:text="아이템1"/>
         <LinearLayout
