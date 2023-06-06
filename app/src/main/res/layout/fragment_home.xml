@@ -34,6 +34,7 @@
                 android:layout_width="260dp"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
+                android:background="@drawable/edittextshape"
                 android:textColorHint="#555555"
                 android:completionHint="검색어를 입력하세요."
                 android:completionThreshold="1" />
