@@ -119,7 +119,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // 얀관검색창
+        // 연관 검색창
         list = new ArrayList<String>();
 
         // 리스트에 검색될 데이터(단어)를 추가한다.
@@ -147,22 +147,26 @@ public class HomeFragment extends Fragment {
         initView(root);
         setBarChart();
 
+        // Spinner
+        Spinner itemSpinner = (Spinner)root.findViewById(R.id.spinner);
+        ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
+                R.array.spinner, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        itemSpinner.setAdapter(spinnerAdapter);
+
         // 검색 버튼
         button_secondsearch = root.findViewById(R.id.button_secondsearch);
         button_secondsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getActivity(),secondsearch.class);
+                intent.putExtra("searchType",autoCompleteTextView.getText().toString());
+                intent.putExtra("searchItem",itemSpinner.getSelectedItem().toString());
                 startActivity(intent);
             }
         });
 
-        // Spinner
-        Spinner yearSpinner = (Spinner)root.findViewById(R.id.spinner);
-        ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
-                R.array.spinner, android.R.layout.simple_spinner_item);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        yearSpinner.setAdapter(spinnerAdapter);
+
 
         return root;
         //return inflater.inflate(R.layout.fragment_home, container, false);
