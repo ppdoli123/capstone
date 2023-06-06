@@ -67,6 +67,13 @@
                 android:text="Stored goods"/>
 
         </LinearLayout>
+        <Button
+            android:id="@+id/btnlogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:rotationX="0"
+            android:onClick="logout"
+            android:text="로그아웃" />
     </LinearLayout>
 
 </FrameLayout>

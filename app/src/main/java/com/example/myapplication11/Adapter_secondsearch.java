@@ -34,7 +34,7 @@ public class Adapter_secondsearch extends RecyclerView.Adapter<ViewHolder_seocon
     public void onBindViewHolder(@NonNull ViewHolder_seocondsearch holder, int position) {
         String text = arrayList.get(position);
         holder.itemtitle_secondsearch.setText(text);
-        holder.itemimage_secondsearch.setOnClickListener(new View.OnClickListener() {
+        holder.item_secondsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int mPosition = holder.getAdapterPosition();

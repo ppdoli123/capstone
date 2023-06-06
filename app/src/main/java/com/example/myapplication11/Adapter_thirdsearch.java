@@ -34,7 +34,7 @@ public class Adapter_thirdsearch extends RecyclerView.Adapter<ViewHolder_thirdse
     public void onBindViewHolder(@NonNull ViewHolder_thirdsearch holder, int position) {
         String text = arrayList.get(position);
         holder.itemtitle_thirdsearch.setText(text);
-        holder.itemimage_thirdsearch.setOnClickListener(new View.OnClickListener() {
+        holder.item_thirdsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int mPosition = holder.getAdapterPosition();
