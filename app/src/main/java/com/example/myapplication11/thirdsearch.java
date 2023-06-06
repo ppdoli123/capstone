@@ -147,7 +147,7 @@ public class thirdsearch extends AppCompatActivity {
     }
 
     RecyclerView recyclerView;
-    Adapter2 adapter;
+    Adapter_thirdsearch adapter;
 
     Button button;
 
@@ -181,7 +181,7 @@ public class thirdsearch extends AppCompatActivity {
         Log.d(TAG, "Received documentName: " + documentName);
         setPieChart(documentName);
 
-        adapter= new Adapter2();
+        adapter= new Adapter_thirdsearch();
         for (int i =0; i<10;i++){
             String str = i+"번째 아이템";
             adapter.setArrayList(str);

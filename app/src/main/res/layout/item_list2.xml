@@ -3,7 +3,11 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
+    <!--메인 화면과 제품설명 페이지에서 사용되는 것임-->
+    <!--adapter4와 adapter2에서 사용-->
+
     <LinearLayout
+        android:id="@+id/item_thirdsaerch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"

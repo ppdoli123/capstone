@@ -23,6 +23,10 @@ import com.google.android.gms.tasks.Tasks;
 import org.eazegraph.lib.charts.BarChart;
 import org.eazegraph.lib.models.BarModel;
 
+import java.util.List;
+import android.widget.AutoCompleteTextView;
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
@@ -104,8 +108,19 @@ public class HomeFragment extends Fragment {
 
     }
 
+    // 연관 검색 바 설정
+    private List<String> list;
+    private void settingList(){
+        list.add("촉촉한");
+        list.add("수분감");
+        list.add("보송한");
+        list.add("시원한");
+        list.add("상쾌한");
+        list.add("waterful");
+    }
+
     RecyclerView recyclerView;
-    Adapter4 adapter;
+    Adapter_main adapter;
 
 
     @Override
@@ -115,6 +130,20 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         fetchDataAndPopulateRecyclerView();
+
+        // 연관 검색창
+        list = new ArrayList<String>();
+
+        // 리스트에 검색될 데이터(단어)를 추가한다.
+        settingList();
+
+        final AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) root.findViewById(R.id.autoCompleteTextView);
+
+        // AutoCompleteTextView 에 아답터를 연결한다.
+        autoCompleteTextView.setAdapter(new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_dropdown_item_1line,  list ));
+
+        // 리사이클러뷰
         recyclerView=(RecyclerView) root.findViewById(R.id.recycle_mainsearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
         // 강조 시각. 이 부분을 수정합니다.
@@ -124,26 +153,31 @@ public class HomeFragment extends Fragment {
         } else {
             Log.d("HomeFragment", "userDocumentName is null"); // 디버그용 로그 출력
         }
-        adapter= new Adapter4();
+        adapter= new Adapter_main();
         recyclerView.setAdapter(adapter); // 어댑터 연결
         initView(root);
         setBarChart();
 
+        // Spinner
+        Spinner itemSpinner = (Spinner)root.findViewById(R.id.spinner);
+        ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
+                R.array.spinner, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        itemSpinner.setAdapter(spinnerAdapter);
+
+        // 검색 버튼
         button_secondsearch = root.findViewById(R.id.button_secondsearch);
         button_secondsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getActivity(),secondsearch.class);
+                intent.putExtra("searchType",autoCompleteTextView.getText().toString());
+                intent.putExtra("searchItem",itemSpinner.getSelectedItem().toString());
                 startActivity(intent);
             }
         });
 
-        // Spinner
-        Spinner yearSpinner = (Spinner)root.findViewById(R.id.spinner);
-        ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
-                R.array.spinner, android.R.layout.simple_spinner_item);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        yearSpinner.setAdapter(spinnerAdapter);
+
 
         return root;
         //return inflater.inflate(R.layout.fragment_home, container, false);
