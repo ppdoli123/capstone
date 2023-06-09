@@ -97,12 +97,12 @@ public class HomeFragment extends Fragment {
 
         chart2.clearChart();
         // value에 값을 넣으면 됌
-        chart2.addBar(new BarModel("12", 10f, 0xFF56B7F1));
-        chart2.addBar(new BarModel("13", 10f, 0xFF56B7F1));
-        chart2.addBar(new BarModel("14", 20f, 0xFF56B7F1));
-        chart2.addBar(new BarModel("15", 20f, 0xFF56B7F1));
-        chart2.addBar(new BarModel("16", 10f, 0xFF56B7F1));
-        chart2.addBar(new BarModel("17", 10f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("피부", 8637f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("색상", 6974f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("바르다", 6139f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("컬러", 4827f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("그리다", 4589f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("번짐", 4391f, 0xFF56B7F1));
 
         chart2.startAnimation();
 
@@ -211,12 +211,12 @@ public class HomeFragment extends Fragment {
                             if (user_preference1 != null) {
                                 mainTask = db.collection("product")
                                         .orderBy(FieldPath.of(user_preference1), Query.Direction.DESCENDING)
-                                        .limit(5)
+                                        .limit(10)
                                         .get();
                             } else if(user_preference2 != null) {
                                 mainTask = db.collection("product")
                                         .orderBy(FieldPath.of(user_preference2), Query.Direction.DESCENDING)
-                                        .limit(5)
+                                        .limit(10)
                                         .get();
                             }
 
@@ -231,7 +231,7 @@ public class HomeFragment extends Fragment {
                                         // 실패한 경우 두 번째 환경설정 사용 (만약 user_preference1이 사용된 경우)
                                         Task<QuerySnapshot> secondTask = db.collection("product")
                                                 .orderBy(FieldPath.of(user_preference2), Query.Direction.DESCENDING)
-                                                .limit(5)
+                                                .limit(10)
                                                 .get();
 
                                         secondTask.addOnSuccessListener(querySnapshot -> {
@@ -242,7 +242,7 @@ public class HomeFragment extends Fragment {
                                         // 실패한 경우 두 번째 환경설정 사용 (만약 user_preference1이 사용된 경우)
                                         Task<QuerySnapshot> secondTask = db.collection("product")
                                                 .orderBy(FieldPath.of(user_preference1), Query.Direction.DESCENDING)
-                                                .limit(5)
+                                                .limit(10)
                                                 .get();
 
                                         secondTask.addOnSuccessListener(querySnapshot -> {
