@@ -19,7 +19,6 @@ class ViewHolder_main extends RecyclerView.ViewHolder {
         item_thirdsearch= itemView.findViewById(R.id.item_thirdsaerch);
         itemimage_thirdsearch= itemView.findViewById(R.id.itemimage_thirdsearch);
         itemtitle_thirdsearch= itemView.findViewById(R.id.itemtitle_thirdsearch);
-        score_thirdsearch= itemView.findViewById(R.id.score_thirdsearch);
-        star_thirdsearch= itemView.findViewById(R.id.star_thirdsearch);
+
     }
 }
