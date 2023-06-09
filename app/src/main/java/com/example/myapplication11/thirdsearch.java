@@ -4,51 +4,39 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import org.eazegraph.lib.charts.BarChart;
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.BarModel;
 import org.eazegraph.lib.models.PieModel;
-
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-
 
 public class thirdsearch extends AppCompatActivity {
     private ListView ListView1;
@@ -57,6 +45,8 @@ public class thirdsearch extends AppCompatActivity {
 
     Intent intent;
     TextView productName;
+    TextView productprice;
+    Button productpage;
     ImageView productImage;
     PieChart chart1;
     BarChart chart2;
@@ -93,6 +83,19 @@ public class thirdsearch extends AppCompatActivity {
                                 valuesMap.put(entry.getKey(), value);
                             }
                         }
+                        productprice = findViewById(R.id.price);
+                        productpage = findViewById(R.id.product_page);
+                        String price = document.getString("price");
+                        String pagelink = document.getString("link");
+                        productprice.setText("가격: "+price+"원");
+                        productpage.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent openWebPageIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(pagelink));
+                                startActivity(openWebPageIntent);
+                            }
+                        });
+
                         // 값을 기준으로 내림차순으로 정렬된 엔트리 리스트 생성
                         List<Map.Entry<String, Long>> sortedEntries = new ArrayList<>(valuesMap.entrySet());
                         sortedEntries.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
