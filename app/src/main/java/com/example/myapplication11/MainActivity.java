@@ -41,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
         settingFragment = new SettingFragment();
         profileFragment = new ProfileFragment();
+        Bundle profileArgs = new Bundle();
+        profileArgs.putString("userDocumentName", userDocumentName);
+        profileFragment.setArguments(profileArgs);
+
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, homeFragment).commit();
         NavigationBarView navigationBarView = findViewById(R.id.bottomNav);
         navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
