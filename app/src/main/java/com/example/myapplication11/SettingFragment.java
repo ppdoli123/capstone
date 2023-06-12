@@ -1,18 +1,28 @@
 package com.example.myapplication11;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication11.databinding.FragmentHomeBinding;
 import com.example.myapplication11.databinding.FragmentSettingBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +41,10 @@ public class SettingFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    Adapter_community adapter;
+
+    private List<communityitem> datalist;
 
     public SettingFragment() {
         // Required empty public constructor
@@ -64,23 +78,43 @@ public class SettingFragment extends Fragment {
     }
 
     RecyclerView recyclerView;
-    Adapter_community adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // 리사이클러뷰
         binding = FragmentSettingBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         recyclerView=(RecyclerView) root.findViewById(R.id.content_community);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
 
-        adapter= new Adapter_community();
-        for (int i =0; i<10;i++){
-            String str = i+"번째 아이템";
-            adapter.setArrayList(str);
-        }
+        datalist = new ArrayList<communityitem>();
+
+        // Firestore 데이터 가져오기
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Search")
+                //.orderBy("type") // 이름에 따라 정렬
+                .limit(15)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String title = document.getString("name");
+                                String text = document.getString("review");
+                                communityitem data = new communityitem(title,text);
+                                System.out.println(title);
+                                datalist.add(data);
+                            }
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            Log.d(TAG, "Error getting documents: " + task.getException());
+                        }
+                    }
+                });
+
+        adapter= new Adapter_community(datalist);
         recyclerView.setAdapter(adapter);
 
         return root;

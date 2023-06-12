@@ -3,6 +3,7 @@ package com.example.myapplication11;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,23 +18,24 @@ public class CommunityActivity extends AppCompatActivity {
     Intent intent;
 
 
-    RecyclerView recyclerView;
+    TextView text_community , title_community;
     Adapter_community adapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_totalreview);
+        setContentView(R.layout.activity_community);
+        intent = getIntent();
+        String title = intent.getStringExtra("title");
+        String text = intent.getStringExtra("text");
 
-        recyclerView=(RecyclerView) findViewById(R.id.recycle_totalreview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
+        text_community=(TextView) findViewById(R.id.text_community);
+        title_community=(TextView) findViewById(R.id.title_community);
 
-        adapter= new Adapter_community();
-        for (int i =0; i<10;i++){
-            String str = i+"피부 촉촉해지는 느낌이 좋구요 가성비가 좋은 제품이라 듬뿍 바를수 있어 좋은것 같습니다.";
-            adapter.setArrayList(str);
-        }
-        recyclerView.setAdapter(adapter);
+        text_community.setText(text);
+        title_community.setText(title);
+      /*  adapter= new Adapter_community();
+        recyclerView.setAdapter(adapter);*/
     }
 }

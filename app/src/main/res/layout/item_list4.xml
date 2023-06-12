@@ -5,9 +5,9 @@
     android:layout_marginVertical="10dp">
 
     <LinearLayout
-        android:id="@+id/content_community"
+        android:id="@+id/touch_community"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
         android:orientation="vertical"
         android:gravity="center">
         <View
@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:textSize="17dp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:text="제목" />
         <TextView
             android:id="@+id/text_community"
@@ -28,14 +29,8 @@
             android:layout_height="35dp"
             android:textSize="15dp"
             android:textStyle="normal"
+            android:textColor="@color/black"
             android:text="내용" />
-        <TextView
-            android:id="@+id/time_community"
-            android:layout_width="300dp"
-            android:layout_height="15dp"
-            android:textSize="12dp"
-            android:textStyle="normal"
-            android:text="시간|닉네임" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
