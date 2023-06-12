@@ -195,6 +195,8 @@ public class thirdsearch extends AppCompatActivity {
     }
     private void fetchTopTenProductDetails(List<String> fieldNames) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference productRef = db.collection("product");
+
         CollectionReference keywordCollection = db.collection("keyword");
 
         keywordCollection.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -370,7 +372,6 @@ public class thirdsearch extends AppCompatActivity {
                 });
 
 
-
         productName = findViewById(R.id.product_name);
         productImage = findViewById(R.id.product_image);
         chart1 = findViewById(R.id.tab1_chart_1);
@@ -386,9 +387,20 @@ public class thirdsearch extends AppCompatActivity {
             Glide.with(thirdsearch.this)
                     .load(imageUrl)
                     .into(productImage); // 이미지 로드
+            CollectionReference productRef = db.collection("product");
+            productRef.get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot productQueryDocumentSnapshots) {
+                            for (QueryDocumentSnapshot productDoc : productQueryDocumentSnapshots) {
+                                String productName = productDoc.getString("name");
 
+                                if (productName != null && productName.equals(name)) {
+                                    String productId = productDoc.getId();
+                                    setPieChart(productId);
+                                }}}});
             // 파이 차트 설정
-            setPieChart(documentName);
+
 
             // 리사이클러뷰 설정
             RecyclerView recyclerView = findViewById(R.id.recycle_thirdsearch);
