@@ -49,6 +49,9 @@
         <activity
             android:name=".TotalReviewActivity">
         </activity>
+        <activity
+            android:name=".CommunityActivity">
+        </activity>
         <!--<activity
             android:name=".MainActivity"
             android:exported="true">

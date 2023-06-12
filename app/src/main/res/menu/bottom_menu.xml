@@ -9,6 +9,6 @@
         android:icon="@drawable/ic_person"/>
 
     <item android:id="@+id/settingFragment"
-        android:title="Setting"
-        android:icon="@drawable/ic_settings"/>
+        android:title="notice"
+        android:icon="@drawable/notice"/>
 </menu>
