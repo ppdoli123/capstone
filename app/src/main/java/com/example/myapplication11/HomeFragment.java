@@ -111,12 +111,12 @@ public class HomeFragment extends Fragment {
     // 연관 검색 바 설정
     private List<String> list;
     private void settingList(){
-        list.add("촉촉한");
+        list.add("광택감");
         list.add("수분감");
-        list.add("보송한");
-        list.add("시원한");
-        list.add("상쾌한");
-        list.add("waterful");
+        list.add("촉촉함");
+        list.add("가벼움");
+        list.add("보습");
+        list.add("쫀쫀함");
     }
 
     RecyclerView recyclerView;
@@ -189,7 +189,7 @@ public class HomeFragment extends Fragment {
             return;
         }
         // 사용자 정보 가져오기
-        db.collection("users")
+        db.collection( "users")
                 .document(userDocumentName) // 로그인 사용자의 ID를 지정해 주세요
                 .get()
                 .addOnSuccessListener(document -> {

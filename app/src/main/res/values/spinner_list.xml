@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="spinner">
-        <item>로션</item>
-        <item>스킨</item>
-        <item>토너</item>
+        <item>베이스메이크업</item>
+        <item>립메이크업</item>
+        <item>남성 스킨케어</item>
+        <item>남성 메이크업</item>
+        <item>클렌징</item>
+        <item>스킨케어</item>
+        <item>선케어</item>
+        <item>남성 쉐이빙</item>
     </string-array>
 </resources>

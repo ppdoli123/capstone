@@ -18,7 +18,7 @@ public class CommunityActivity extends AppCompatActivity {
 
 
     RecyclerView recyclerView;
-    Adapter_totalreview adapter;
+    Adapter_community adapter;
 
 
     @Override
@@ -29,7 +29,7 @@ public class CommunityActivity extends AppCompatActivity {
         recyclerView=(RecyclerView) findViewById(R.id.recycle_totalreview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
 
-        adapter= new Adapter_totalreview();
+        adapter= new Adapter_community();
         for (int i =0; i<10;i++){
             String str = i+"피부 촉촉해지는 느낌이 좋구요 가성비가 좋은 제품이라 듬뿍 바를수 있어 좋은것 같습니다.";
             adapter.setArrayList(str);

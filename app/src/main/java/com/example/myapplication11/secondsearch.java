@@ -1,16 +1,26 @@
 package com.example.myapplication11;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,22 +35,24 @@ public class secondsearch extends AppCompatActivity {
 
 
 
-    // 연관 검색 바 설정
+
+    // 데이터 리스트
+    private List<searchitem> datalist;
     private List<String> list;
     private void settingList(){
-        list.add("촉촉한");
+        list.add("광택감");
         list.add("수분감");
-        list.add("보송한");
-        list.add("시원한");
-        list.add("상쾌한");
-        list.add("waterful");
+        list.add("촉촉함");
+        list.add("가벼움");
+        list.add("보습");
+        list.add("쫀쫀함");
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_secondsearch);
-
+        datalist = new ArrayList<searchitem>();
         // 연관 검색창
         list = new ArrayList<String>();
 
@@ -64,13 +76,42 @@ public class secondsearch extends AppCompatActivity {
         recyclerView=(RecyclerView) findViewById(R.id.recycle_secondsearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
 
-        adapterSecondsearch = new Adapter_secondsearch();
-        for (int i =0; i<10;i++){
-            String str = searchItem+" "+searchType+" "+i+"번째 아이템";
-            adapterSecondsearch.setArrayList(str);
-        }
+
+        // Firestore 데이터 가져오기
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Search")
+                .orderBy("type") // 이름에 따라 정렬
+                .whereEqualTo("type", searchItem) // 이름이 "John"인 데이터만 필터링
+                .whereEqualTo("keyword", searchType) // 이름이 "John"인 데이터만 필터링
+                .limit(10)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String name = document.getString("name");
+                                String image = document.getString("image");
+                                String keyword = document.getString("keyword");
+                                String type = document.getString("type");
+                                searchitem data = new searchitem(name,image,keyword,type);
+                                datalist.add(data);
+                            }
+                            adapterSecondsearch.notifyDataSetChanged();
+                        } else {
+                            Log.d(TAG, "Error getting documents: " + task.getException());
+                        }
+                    }
+                });
+
+
+        adapterSecondsearch = new Adapter_secondsearch(datalist);
         recyclerView.setAdapter(adapterSecondsearch);
+
     }
+
+
+
 }
 
 
