@@ -330,41 +330,22 @@ public class thirdsearch extends AppCompatActivity {
                                 datalist.add(data);
                                 System.out.println(name);
                             }
-                            text1 = findViewById(R.id.text1);
-                            text2 = findViewById(R.id.text2);
-                            text3 = findViewById(R.id.text3);
+                            TextView[] textViews = {findViewById(R.id.text1), findViewById(R.id.text2), findViewById(R.id.text3)};
 
+                            for (int i = 0; i < textViews.length; i++) {
+                                String review = datalist.get(i).getReview().toString();
+                                String sentence = datalist.get(i).getSentence().toString();
 
-                            String review1 = datalist.get(0).getReview().toString();
-                            String review2 = datalist.get(1).getReview().toString();
-                            String review3 = datalist.get(2).getReview().toString();
+                                SpannableString spannableString = new SpannableString(review);
+                                int startIndex = review.indexOf(sentence);
+                                int endIndex = startIndex + sentence.length();
 
-                            String sentence1 = datalist.get(0).getSentence().toString();
-                            String sentence2 = datalist.get(1).getSentence().toString();
-                            String sentence3 = datalist.get(2).getSentence().toString();
+                                ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(Color.BLUE);
+                                spannableString.setSpan(foregroundSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
+                                textViews[i].setText(spannableString);
+                            }
 
-                            // 첫번째 사용자 리뷰
-                            SpannableString spannableString1 = new SpannableString(review1);
-                            int startIndex1 = review1.indexOf(sentence1); // 텍스트에서 해당하는 글자의 시작 인덱스 찾기
-                            int endIndex1 = startIndex1 + sentence1.length(); // 텍스트에서 해당하는 글자의 끝 인덱스 찾기
-                            ForegroundColorSpan foregroundSpan1 = new ForegroundColorSpan(Color.BLUE); // 파란색 스팬 생성
-                            spannableString1.setSpan(foregroundSpan1, startIndex1, endIndex1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            text1.setText(spannableString1);
-                            // 두번째 사용자 리뷰
-                            SpannableString spannableString2 = new SpannableString(review2);
-                            int startIndex2 = review2.indexOf(sentence2); // 텍스트에서 해당하는 글자의 시작 인덱스 찾기
-                            int endIndex2 = startIndex2 + sentence2.length(); // 텍스트에서 해당하는 글자의 끝 인덱스 찾기
-                            ForegroundColorSpan foregroundSpan2 = new ForegroundColorSpan(Color.BLUE); // 파란색 스팬 생성
-                            spannableString2.setSpan(foregroundSpan2, startIndex2, endIndex2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            text2.setText(spannableString2);
-                            // 세번째 사용자 리뷰
-                            SpannableString spannableString3 = new SpannableString(review3);
-                            int startIndex3 = review3.indexOf(sentence3); // 텍스트에서 해당하는 글자의 시작 인덱스 찾기
-                            int endIndex3 = startIndex3 + sentence3.length(); // 텍스트에서 해당하는 글자의 끝 인덱스 찾기
-                            ForegroundColorSpan foregroundSpan3 = new ForegroundColorSpan(Color.BLUE); // 파란색 스팬 생성
-                            spannableString3.setSpan(foregroundSpan3, startIndex3, endIndex3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            text3.setText(spannableString3);
                         } else {
                             Log.d(TAG, "Error getting documents: " + task.getException());
                         }

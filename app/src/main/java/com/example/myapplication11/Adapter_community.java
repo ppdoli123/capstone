@@ -16,11 +16,10 @@ public class Adapter_community extends RecyclerView.Adapter<ViewHolder_community
     private List<communityitem> dataList;
     Intent intent;
 
+
     public Adapter_community(List<communityitem> dataList) {
-        this.dataList = new ArrayList<>();
-
+        this.dataList = dataList;
     }
-
     @NonNull
     @Override
     public ViewHolder_community onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

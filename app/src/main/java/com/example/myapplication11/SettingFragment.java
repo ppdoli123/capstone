@@ -90,6 +90,10 @@ public class SettingFragment extends Fragment {
 
         datalist = new ArrayList<communityitem>();
 
+        // 어댑터 초기화
+        adapter = new Adapter_community(datalist);
+        recyclerView.setAdapter(adapter);
+
         // Firestore 데이터 가져오기
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Search")
@@ -107,6 +111,7 @@ public class SettingFragment extends Fragment {
                                 System.out.println(title);
                                 datalist.add(data);
                             }
+                            // 데이터 업데이트를 어댑터에 알림
                             adapter.notifyDataSetChanged();
                         } else {
                             Log.d(TAG, "Error getting documents: " + task.getException());
@@ -114,11 +119,7 @@ public class SettingFragment extends Fragment {
                     }
                 });
 
-        adapter= new Adapter_community(datalist);
-        recyclerView.setAdapter(adapter);
-
         return root;
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_setting, container, false);
     }
+
 }
