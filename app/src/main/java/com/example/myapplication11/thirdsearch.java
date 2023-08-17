@@ -1,6 +1,7 @@
 package com.example.myapplication11;
 
 import static android.content.ContentValues.TAG;
+import static android.icu.text.DisplayContext.LENGTH_SHORT;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,6 +17,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -331,20 +334,27 @@ public class thirdsearch extends AppCompatActivity {
                                 System.out.println(name);
                             }
                             TextView[] textViews = {findViewById(R.id.text1), findViewById(R.id.text2), findViewById(R.id.text3)};
+                            int dataSize = datalist.size();
 
-                            for (int i = 0; i < textViews.length; i++) {
-                                String review = datalist.get(i).getReview().toString();
-                                String sentence = datalist.get(i).getSentence().toString();
+                            if (dataSize > 0) {
+                                for (int i = 0; i < dataSize && i < textViews.length; i++) {
+                                    String review = datalist.get(i).getReview().toString();
+                                    String sentence = datalist.get(i).getSentence().toString();
 
-                                SpannableString spannableString = new SpannableString(review);
-                                int startIndex = review.indexOf(sentence);
-                                int endIndex = startIndex + sentence.length();
+                                    SpannableString spannableString = new SpannableString(review);
+                                    int startIndex = review.indexOf(sentence);
 
-                                ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(Color.BLUE);
-                                spannableString.setSpan(foregroundSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                    if (startIndex != -1) {
+                                        int endIndex = startIndex + sentence.length();
+                                        ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(Color.BLUE);
+                                        spannableString.setSpan(foregroundSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                    }
 
-                                textViews[i].setText(spannableString);
-                            }
+                                    textViews[i].setText(spannableString);
+                                }
+                            } else {
+                               }
+
 
                         } else {
                             Log.d(TAG, "Error getting documents: " + task.getException());

@@ -96,17 +96,17 @@ public class SettingFragment extends Fragment {
 
         // Firestore 데이터 가져오기
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Search")
+        db.collection("community")
                 //.orderBy("type") // 이름에 따라 정렬
-                .limit(15)
+                .limit(10)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                String title = document.getString("name");
-                                String text = document.getString("review");
+                                String title = document.getString("text");
+                                String text = document.getString("title");
                                 communityitem data = new communityitem(title,text);
                                 System.out.println(title);
                                 datalist.add(data);
