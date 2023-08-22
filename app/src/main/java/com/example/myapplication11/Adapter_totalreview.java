@@ -37,23 +37,19 @@ public class Adapter_totalreview extends RecyclerView.Adapter<ViewHolder_totalre
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder_totalreview holder, int position) {
-
-        //String name = dataList.get(position).getName();
         String review = dataList.get(position).getReview();
         String sentence = dataList.get(position).getSentence();
 
         SpannableString spannableString = new SpannableString(review);
-        int startIndex = review.indexOf(sentence); // 텍스트에서 해당하는 글자의 시작 인덱스 찾기
-        int endIndex = startIndex + sentence.length(); // 텍스트에서 해당하는 글자의 끝 인덱스 찾기
-
-        ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(Color.BLUE); // 파란색 스팬 생성
-        spannableString.setSpan(foregroundSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        int startIndex = review.indexOf(sentence);
+        if(startIndex >= 0) { // 인덱스 값이 0 이상인 경우에만 실행
+            int endIndex = startIndex + sentence.length();
+            ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(Color.BLUE);
+            spannableString.setSpan(foregroundSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
 
         holder.review_totalreview.setText(spannableString);
-
-
     }
-
     @Override
     public int getItemCount() {
         return dataList.size();
