@@ -58,19 +58,22 @@ public class thirdsearch extends AppCompatActivity {
     ImageView productImage;
     PieChart chart1;
     BarChart chart2;
+    BarChart chart3;
     String imageUrl;
     String documentName;
     String name;
     String type;
 
     public void initView(View v) {
-        chart1 = (PieChart) v.findViewById(R.id.tab1_chart_1);
+        //chart1 = (PieChart) v.findViewById(R.id.tab1_chart_1);
         chart2 = (BarChart) v.findViewById(R.id.tab1_chart_2);
+        chart3 = (BarChart) v.findViewById(R.id.tab1_chart_3);
     }
 
     // 파이 차트 설정
     private void setPieChart(String documentId) {
-        chart1.clearChart();
+//        chart1.clearChart();
+        chart3.clearChart();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference productRef = db.collection("product");
         int[] colors = {Color.parseColor("#CDA67F"), Color.parseColor("#00BFFF"), Color.parseColor("#007F7F"), Color.parseColor("#C8A2C8")};
@@ -105,7 +108,7 @@ public class thirdsearch extends AppCompatActivity {
                         });
 
                         // 값을 기준으로 내림차순으로 정렬된 엔트리 리스트 생성
-                        List<Map.Entry<String, Long>> sortedEntries = new ArrayList<>(valuesMap.entrySet());
+                       /* List<Map.Entry<String, Long>> sortedEntries = new ArrayList<>(valuesMap.entrySet());
                         sortedEntries.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
 
                         // 가장 큰 값부터 차트에 추가 (최대 4개)
@@ -132,7 +135,39 @@ public class thirdsearch extends AppCompatActivity {
                             }
                         }
 
-                        chart1.startAnimation();
+                        chart1.startAnimation();*/
+                        List<Pair<String, Float>> valueList = new ArrayList<>();
+
+                        List<Map.Entry<String, Long>> sortedEntries = new ArrayList<>(valuesMap.entrySet());
+                        sortedEntries.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
+
+                        // 가장 큰 값부터 차트에 추가 (최대 4개)
+                        for (int i = 0; i < sortedEntries.size() && i < 4; i++) {
+                            Map.Entry<String, Long> entry = sortedEntries.get(i);
+                            String type = entry.getKey();
+                            float value = entry.getValue();
+                            valueList.add(new Pair<>(type, value));
+                        }
+
+                        // 가장 큰 값 3개와 가장 작은 값 3개를 찾고 정렬
+                        Collections.sort(valueList, new Comparator<Pair<String, Float>>() {
+
+                            @Override
+                            public int compare(Pair<String, Float> o1, Pair<String, Float> o2) {
+                                return o2.second.compareTo(o1.second);
+                            }
+                        });
+
+                        List<Pair<String, Float>> chartValues = new ArrayList<>();
+
+                        if (valueList.size() >= 4) {
+                            chartValues.addAll(valueList.subList(0, 4)); // 상위 3 값을 추가
+                        } else {
+                            chartValues.addAll(valueList);
+                        }
+                        setBarChart2(valueList);
+
+
                     } else {
                         Log.d(TAG, "No documents found in 'product' collection.");
                     }
@@ -287,6 +322,21 @@ public class thirdsearch extends AppCompatActivity {
         chart2.startAnimation();
     }
 
+    private void setBarChart2(List<Pair<String, Float>> chartValues) {
+        chart3.clearChart();
+
+        int count = 0;
+
+        for (Pair<String, Float> value : chartValues) {
+            if (count < 4) {
+                chart3.addBar(new BarModel(value.first, value.second, 0xFF56B7F1));
+            }
+            count++;
+        }
+
+        chart3.startAnimation();
+    }
+
     private void fetchKeyword(String name) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         keywordCollection = db.collection("keyword");
@@ -365,8 +415,9 @@ public class thirdsearch extends AppCompatActivity {
 
         productName = findViewById(R.id.product_name);
         productImage = findViewById(R.id.product_image);
-        chart1 = findViewById(R.id.tab1_chart_1);
+        //chart1 = findViewById(R.id.tab1_chart_1);
         chart2 = findViewById(R.id.tab1_chart_2);
+        chart3 = findViewById(R.id.tab1_chart_3);
 
         Intent intent = getIntent();
         if (intent != null) {

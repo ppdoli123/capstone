@@ -102,11 +102,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <org.eazegraph.lib.charts.PieChart
-                    android:id="@+id/tab1_chart_1"
-                    android:layout_width="200dp"
+<!--                <org.eazegraph.lib.charts.PieChart-->
+<!--                    android:id="@+id/tab1_chart_1"-->
+<!--                    android:layout_width="200dp"-->
+<!--                    android:layout_height="200dp"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:padding="10dp"-->
+<!--                    app:egBarWidth="20dp"-->
+<!--                    app:egEnableScroll="true"-->
+<!--                    app:egFixedBarWidth="true"-->
+<!--                    app:egLegendHeight="40dp"-->
+<!--                    app:egShowDecimal="true" />-->
+                <org.eazegraph.lib.charts.BarChart
+                    android:id="@+id/tab1_chart_3"
+                    android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:padding="10dp"
                     app:egBarWidth="20dp"
                     app:egEnableScroll="true"
