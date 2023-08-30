@@ -69,7 +69,7 @@ public class secondsearch extends AppCompatActivity {
         intent=getIntent();
         String searchItem = intent.getStringExtra("searchItem");
         String searchType = intent.getStringExtra("searchType");
-
+        String userDocumentName = intent.getStringExtra("userDocumentName");
         autoCompleteTextView.setText(searchType);
 
 
@@ -94,7 +94,8 @@ public class secondsearch extends AppCompatActivity {
                                 String image = document.getString("image");
                                 String keyword = document.getString("keyword");
                                 String type = document.getString("type");
-                                searchitem data = new searchitem(name,image,keyword,type);
+                                String user = userDocumentName;
+                                searchitem data = new searchitem(name,image,keyword,type,user);
                                 datalist.add(data);
                             }
                             adapterSecondsearch.notifyDataSetChanged();

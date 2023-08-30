@@ -161,6 +161,7 @@ public class HomeFragment extends Fragment {
                 Intent intent=new Intent(getActivity(),secondsearch.class);
                 intent.putExtra("searchType",autoCompleteTextView.getText().toString());
                 intent.putExtra("searchItem",itemSpinner.getSelectedItem().toString());
+                intent.putExtra("userDocumentName", userDocumentName); // secondsearch로 이름 전달합니다.
                 startActivity(intent);
             }
         });
@@ -265,10 +266,9 @@ public class HomeFragment extends Fragment {
 
                     String itemimage_thirdsearch = doc.getString("img_url");
                     String itemtitle_thirdsearch = doc.getString("name");
-
                     // RecyclerView 아이템 추가
 
-                        adapter.addItem(new ProductItem(itemimage_thirdsearch, itemtitle_thirdsearch),productId);
+                        adapter.addItem(new ProductItem(itemimage_thirdsearch, itemtitle_thirdsearch), userDocumentName ,productId);
 
                 }
             }

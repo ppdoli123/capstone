@@ -56,6 +56,7 @@ public class Adapter_secondsearch extends RecyclerView.Adapter<ViewHolder_seocon
         String itemtag = dataList.get(position).getKeyword();
         // 이미지 URL
         String imageUrl = dataList.get(position).getImageUrl();
+        String user = dataList.get(position).getUser();
 
         // 이미지 로드 작업 시작
         new LoadImageTask(holder.itemimage_secondsearch).execute(imageUrl);
@@ -83,6 +84,7 @@ public class Adapter_secondsearch extends RecyclerView.Adapter<ViewHolder_seocon
                                         // add imageUrl and name to the intent
                                         thirdsearchIntent.putExtra("imageUrl", image);
                                         thirdsearchIntent.putExtra("name", name);
+                                        thirdsearchIntent.putExtra("user", user);
                                         context.startActivity(thirdsearchIntent);
                                     }
                                 } else {

@@ -20,12 +20,15 @@ public class Adapter_main extends RecyclerView.Adapter<Adapter_main.ViewHolder> 
     private List<ProductItem> items = new ArrayList<>();
     private Context context;
 
+    public String user;
+
     public void setArrayList(ProductItem item) {
         items.add(item);
     }
-    public void addItem(ProductItem item, String documentName) {
+    public void addItem(ProductItem item,String user, String documentName) {
         item.setDocumentName(documentName);
         items.add(item);
+        this.user = user;
     }
     @NonNull
     @Override
@@ -51,6 +54,7 @@ public class Adapter_main extends RecyclerView.Adapter<Adapter_main.ViewHolder> 
                 // add imageUrl and name to the intent
                 thirdsearchIntent.putExtra("imageUrl", item.getImageUrl());
                 thirdsearchIntent.putExtra("name", item.getName());
+                thirdsearchIntent.putExtra("user", user);
                 context.startActivity(thirdsearchIntent);
             }
         });

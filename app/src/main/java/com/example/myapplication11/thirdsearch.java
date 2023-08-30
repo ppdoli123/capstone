@@ -3,6 +3,9 @@ package com.example.myapplication11;
 import static android.content.ContentValues.TAG;
 import static android.icu.text.DisplayContext.LENGTH_SHORT;
 
+import static com.google.firebase.firestore.FieldValue.arrayRemove;
+import static com.google.firebase.firestore.FieldValue.arrayUnion;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -13,7 +16,11 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,8 +35,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -37,12 +48,15 @@ import org.eazegraph.lib.charts.BarChart;
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.BarModel;
 import org.eazegraph.lib.models.PieModel;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class thirdsearch extends AppCompatActivity {
     private ListView ListView1;
@@ -63,6 +77,7 @@ public class thirdsearch extends AppCompatActivity {
     String documentName;
     String name;
     String type;
+    String user;
 
     public void initView(View v) {
         //chart1 = (PieChart) v.findViewById(R.id.tab1_chart_1);
@@ -149,7 +164,7 @@ public class thirdsearch extends AppCompatActivity {
                             valueList.add(new Pair<>(type, value));
                         }
 
-                        // 가장 큰 값 3개와 가장 작은 값 3개를 찾고 정렬
+                        // 가장 큰 값 4개 찾고 정렬
                         Collections.sort(valueList, new Comparator<Pair<String, Float>>() {
 
                             @Override
@@ -161,7 +176,7 @@ public class thirdsearch extends AppCompatActivity {
                         List<Pair<String, Float>> chartValues = new ArrayList<>();
 
                         if (valueList.size() >= 4) {
-                            chartValues.addAll(valueList.subList(0, 4)); // 상위 3 값을 추가
+                            chartValues.addAll(valueList.subList(0, 4)); // 상위 4 값을 추가
                         } else {
                             chartValues.addAll(valueList);
                         }
@@ -361,8 +376,14 @@ public class thirdsearch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thirdsearch);
 
+        // 하트 버튼 애니메이션 라이브러리 호출
+        ScaleAnimation scaleAnimation;
+        BounceInterpolator bounceInterpolator;//애니메이션이 일어나는 동안의 회수, 속도를 조절하거나 시작과 종료시의 효과를 추가 할 수 있다
+        CompoundButton button_favorite;
+
         intent=getIntent();
         name = intent.getStringExtra("name");
+        user = intent.getStringExtra("user");
 
         datalist = new ArrayList<searchreview>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -412,7 +433,99 @@ public class thirdsearch extends AppCompatActivity {
                     }
                 });
 
+        // 하트 출력 부분
+        scaleAnimation = new ScaleAnimation(0.7f, 1.0f, 0.7f, 1.0f, Animation.RELATIVE_TO_SELF, 0.7f, Animation.RELATIVE_TO_SELF, 0.7f);
 
+        scaleAnimation.setDuration(500);
+        bounceInterpolator = new BounceInterpolator();
+        scaleAnimation.setInterpolator(bounceInterpolator);
+
+        button_favorite = findViewById(R.id.button_favorite);
+
+        // Firestore에서 userDocumentName을 이용해 DocumentReference 생성
+        DocumentReference userDocRef = db.collection("users").document(user);
+        // npm install firebase --save 로 설치
+        button_favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                compoundButton.startAnimation(scaleAnimation);
+                if(isChecked==true){
+                    System.out.println("클릭됨");
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    // 기존 배열 가져오기
+                    userDocRef.get().addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            List<String> existingArray = (List<String>) documentSnapshot.get("Like");
+                            if(existingArray.contains(name)){
+                                System.out.println("이미 저장됨");
+                            }else {
+                                // 새로운 요소 추가
+                                existingArray.add(name);
+                                // 수정된 배열 다시 저장
+                                userDocRef.update("Like", existingArray)
+                                        .addOnSuccessListener(aVoid -> {
+                                            // 요소 추가 성공
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            // 요소 추가 실패
+                                        });
+                            }
+                        }
+                    });
+                }else{
+                    System.out.println("클릭안됨");// 기존 배열 가져오기
+                    userDocRef.get().addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            List<String> existingArray = (List<String>) documentSnapshot.get("Like");
+
+                            // 삭제할 요소의 인덱스 찾기
+                            int indexToRemove = existingArray.indexOf(name);
+                            if (indexToRemove >= 0) {
+                                existingArray.remove(indexToRemove);
+
+                                // 수정된 배열 다시 저장
+                                userDocRef.update("Like", existingArray)
+                                        .addOnSuccessListener(aVoid -> {
+                                            // 요소 삭제 성공
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            // 요소 삭제 실패
+                                        });
+                            }
+                        }
+                    });
+
+                }
+            }
+        });
+
+        // 이미 좋아요 등록을 했다면 눌려있게 만들기
+
+        // DocumentReference로부터 데이터를 읽어오는 작업 실행
+        userDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document != null && document.exists()) {
+                        System.out.println(document.get("Like"));
+                        String str = document.get("Like").toString();
+                        System.out.println(str.contains("123"));
+                        if(str.contains(name)){
+                            button_favorite.setChecked(true);
+                        }
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+        // 좋아요 버튼을 누르면 user에 등록 되고 한번 더 누르면 삭제 되게 만들기
+
+        // 상품 이미지 및 이름 출력부분
         productName = findViewById(R.id.product_name);
         productImage = findViewById(R.id.product_image);
         //chart1 = findViewById(R.id.tab1_chart_1);

@@ -4,6 +4,9 @@ public class ProductItem {
     private String documentName;
     private String imageUrl;
     private String name;
+
+    private String user;
+
     private int totalCount; // totalCount 변수 추가
 
     public ProductItem(String imageUrl, String name) {
@@ -11,10 +14,17 @@ public class ProductItem {
         this.name = name;
     }
 
-    public ProductItem(String name, String imageUrl, String documentName) {
+    public ProductItem(String name, String imageUrl, String user) {
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.user = user;
+    }
+
+    public ProductItem(String name, String imageUrl, String documentName, String user) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.documentName = documentName;
+        this.user=user;
     }
 
     public String getImageUrl() {
@@ -27,6 +37,10 @@ public class ProductItem {
 
     public String getDocumentName() {
         return documentName;
+    }
+
+    public String getUser() {
+        return user;
     }
     // getTotalCount 메소드 추가
 
