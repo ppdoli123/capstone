@@ -69,6 +69,7 @@ public class ProfileFragment extends Fragment {
         // Find views by ID
         profileName = view.findViewById(R.id.profile_name);
         profileType = view.findViewById(R.id.profile_type);
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 // Firestore에서 userDocumentName을 이용해 DocumentReference 생성
@@ -76,6 +77,8 @@ public class ProfileFragment extends Fragment {
 
 // DocumentReference로부터 데이터를 읽어오는 작업 실행
         userDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -95,6 +98,7 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
+
         // Inflate the layout for this fragment
         return view;
     }

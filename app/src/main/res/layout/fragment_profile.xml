@@ -49,12 +49,14 @@
             android:orientation="horizontal"
             android:weightSum="2">
             <Button
+                android:id="@+id/my_review"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="my review"/>
             <Button
+                android:id="@+id/like_button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
