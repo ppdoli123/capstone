@@ -14,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Signup_preferenceActivity2 extends AppCompatActivity {
@@ -66,6 +68,9 @@ public class Signup_preferenceActivity2 extends AppCompatActivity {
                         user.put("user_preference_2", "");
                     }
                     db.collection("users").document(documentId).update(user);
+                    // Like 배열 필드 생성 코드
+                    List<String> newArray = new ArrayList<>();
+                    db.collection("users").document(documentId).update("Like",newArray);
                     Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
                     intent.putExtra("documentId", documentId);
                     startActivity(intent);
