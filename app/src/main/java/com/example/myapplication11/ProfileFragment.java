@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,7 +33,8 @@ public class ProfileFragment extends Fragment {
     private String userDocumentName;
     TextView profileName;
     TextView profileType;
-
+    TextView profileLike;
+    ImageView profileImage;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -69,7 +73,8 @@ public class ProfileFragment extends Fragment {
         // Find views by ID
         profileName = view.findViewById(R.id.profile_name);
         profileType = view.findViewById(R.id.profile_type);
-
+        profileLike = view.findViewById(R.id.like_num);
+        profileImage = view.findViewById(R.id.ImageUpload);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 // Firestore에서 userDocumentName을 이용해 DocumentReference 생성
@@ -90,6 +95,15 @@ public class ProfileFragment extends Fragment {
                         String userpreference2 = document.getString("user_preference_2");
                         profileName.setText(username);
                         profileType.setText(userpreference1 + " " + userpreference2);
+                        Object likeObj = document.get("Like");
+                        if (likeObj != null) {
+                            List<String> like_num = (List<String>) likeObj;
+                            profileLike.setText(String.valueOf(like_num.size()));
+                        } else {
+                            // handle the case when "Like" is null
+                            profileLike.setText("0");
+                        }
+
                     } else {
                         Log.d(TAG, "No such document");
                     }

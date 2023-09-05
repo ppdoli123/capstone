@@ -1,9 +1,11 @@
 package com.example.myapplication11;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView ListView1;
     private FirebaseFirestore db;
     Intent intent;
-
+    public String userDocumentName;
     HomeFragment homeFragment;
     SettingFragment settingFragment;
     ProfileFragment profileFragment;
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         db = FirebaseFirestore.getInstance();
         // userDocumentName 가져오기
-        String userDocumentName = getIntent().getStringExtra("userDocumentName");
+        userDocumentName = getIntent().getStringExtra("userDocumentName");
 
         homeFragment = new HomeFragment();
         Bundle homeArgs = new Bundle();
@@ -74,4 +76,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         // 창준
 
-    }}
+    }
+    public void stored_goods(View target){
+        intent = new Intent(this,Storage_Like.class);
+        intent.putExtra("userDocumentName",userDocumentName);
+        startActivity(intent);
+    }
+
+
+}

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,7 +73,7 @@ public class HomeFragment extends Fragment {
     // 그래프 연동
     BarChart chart2;
     ImageButton button_secondsearch;
-
+    Button like_button;
     public void initView(View v){
 
         chart2 = (BarChart)v.findViewById(R.id.tab1_chart_2);
@@ -158,6 +159,7 @@ public class HomeFragment extends Fragment {
         button_secondsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent=new Intent(getActivity(),secondsearch.class);
                 intent.putExtra("searchType",autoCompleteTextView.getText().toString());
                 intent.putExtra("searchItem",itemSpinner.getSelectedItem().toString());
@@ -165,7 +167,6 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
 
 
         return root;
