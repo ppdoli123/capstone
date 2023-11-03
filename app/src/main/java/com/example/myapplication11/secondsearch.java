@@ -23,6 +23,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 // 제품 태그검색시 나오는 페이지 adapter과 viewholder 사용
@@ -39,14 +41,63 @@ public class secondsearch extends AppCompatActivity {
     // 데이터 리스트
     private List<searchitem> datalist;
     private List<String> list;
+    String[] wordsArray = {
+            "촉촉", "글로시", "글로스", "광택", "윤광", "광채", "보습", "수분",
+            "환절기", "겨울철", "여름철", "여름", "날씨", "계절", "간절", "건조",
+            "민감성", "민감", "예민", "아토피", "화농성", "피부염", "자극", "고생",
+            "유분", "기름기", "기름", "번들", "개기름", "피지", "번들거리",
+            "화사", "환해", "안색", "얼굴빛", "복숭앗빛", "청순", "혈색",
+            "지속", "착색력", "밀착력", "유지", "오래", "종일",
+            "세정", "세정력", "거품", "클렌징", "세안", "개운",
+            "지성", "지성인", "기름", "기름지", "여름", "지성용",
+            "예쁘다", "예쁘", "이쁘", "예쁜", "이쁜",
+            "브라이트", "갈웜", "피치", "코랄", "웜톤",
+            "복합성", "복합", "수부", "수부지", "속건성",
+            "건성", "건조", "속건정", "겨울철",
+            "흡수력", "흡수", "스며들", "스며드",
+            "데일리", "베이직", "무난", "평범",
+            "탄력", "앰플", "영양",
+            "여물", "쿨", "쿨톤",
+            "은은한", "골드", "분홍빛",
+            "산뜻", "가볍", "가벼운",
+            "진정", "재생", "장벽",
+            "보송", "매트",
+            "밀착", "밀착력",
+            "쫀쫀", "쫀득",
+            "되직", "무겁",
+            "부드러운", "부드럽"
+    };
     private void settingList(){
-        list.add("광택감");
-        list.add("수분감");
-        list.add("촉촉함");
-        list.add("가벼움");
-        list.add("보습");
-        list.add("쫀쫀함");
+        list = Arrays.asList(wordsArray);
     }
+    List<String> List1 = Arrays.asList("촉촉", "글로시", "글로스", "광택", "윤광", "광채", "보습", "수분");
+    List<String> List2 = Arrays.asList("환절기", "겨울철", "여름철", "여름", "날씨", "계절", "간절", "건조");
+    List<String> List3 = Arrays.asList("민감성", "민감", "예민", "아토피", "화농성", "피부염", "자극", "고생");
+    List<String> List4 = Arrays.asList("유분", "기름기", "기름", "번들", "개기름", "피지", "번들거리");
+    List<String> List5 = Arrays.asList("화사", "환해", "안색", "얼굴빛", "복숭앗빛", "청순", "혈색");
+    List<String> List6 = Arrays.asList("지속", "착색력", "밀착력", "유지", "오래", "종일");
+    List<String> List7 = Arrays.asList("세정", "세정력", "거품", "클렌징", "세안", "개운");
+    List<String> List8 = Arrays.asList("지성", "지성인", "기름", "기름지", "여름", "지성용");
+    List<String> List9 = Arrays.asList("예쁘다", "예쁘", "이쁘", "예쁜", "이쁜");
+    List<String> List10 = Arrays.asList("브라이트", "갈웜", "피치", "코랄", "웜톤");
+    List<String> List11 = Arrays.asList("복합성", "복합", "수부", "수부지", "속건성");
+    List<String> List12 = Arrays.asList("건성", "건조", "속건정", "겨울철");
+    List<String> List13 = Arrays.asList("흡수력", "흡수", "스며들", "스며드");
+    List<String> List14 = Arrays.asList("데일리", "베이직", "무난", "평범");
+    List<String> List15 = Arrays.asList("탄력", "앰플", "영양");
+    List<String> List16 = Arrays.asList("여물", "쿨", "쿨톤");
+    List<String> List17 = Arrays.asList("은은한", "골드", "분홍빛");
+    List<String> List18 = Arrays.asList("산뜻", "가볍", "가벼운");
+    List<String> List19 = Arrays.asList("진정", "재생", "장벽");
+    List<String> List20 = Arrays.asList("보송", "매트");
+    List<String> List21 = Arrays.asList("밀착", "밀착력");
+    List<String> List22 = Arrays.asList("쫀쫀", "쫀득");
+    List<String> List23 = Arrays.asList("되직", "무겁");
+    List<String> List24 = Arrays.asList("부드러운", "부드럽");
+    List<String> list4 = Arrays.asList("촉촉함","수분감");
+    List<List<String>> listOfLists = Arrays.asList(List1,List2,List3,List4,List5,List6,List7,List8,List9,List10,
+            List11,List12,List13,List14,List15,List16,List17,List18,List19,List20,List21,List22,List23,List24,list4);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,54 +116,62 @@ public class secondsearch extends AppCompatActivity {
         autoCompleteTextView.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line,  list ));
 
-        //HomeFragment 로부터 searchItem , searchType 받아오기
+        //HomeFragment 로부터 searchKeyword , searchType 받아오기
         intent=getIntent();
-        String searchItem = intent.getStringExtra("searchItem");
+        String searchKeyword = intent.getStringExtra("searchKeyword");
         String searchType = intent.getStringExtra("searchType");
+        String second_searchType = intent.getStringExtra("second_searchType");
         String userDocumentName = intent.getStringExtra("userDocumentName");
-        autoCompleteTextView.setText(searchType);
+        autoCompleteTextView.setText(searchKeyword);
 
 
         recyclerView=(RecyclerView) findViewById(R.id.recycle_secondsearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
 
-
-        // Firestore 데이터 가져오기
+        // 이중리스토로 검색하기
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Search")
-                .orderBy("type") // 이름에 따라 정렬
-                .whereEqualTo("type", searchItem) // 이름이 "John"인 데이터만 필터링
-                .whereEqualTo("keyword", searchType) // 이름이 "John"인 데이터만 필터링
-                .limit(10)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                String name = document.getString("name");
-                                String image = document.getString("image");
-                                String keyword = document.getString("keyword");
-                                String type = document.getString("type");
-                                String user = userDocumentName;
-                                searchitem data = new searchitem(name,image,keyword,type,user);
-                                datalist.add(data);
-                            }
-                            adapterSecondsearch.notifyDataSetChanged();
-                        } else {
-                            Log.d(TAG, "Error getting documents: " + task.getException());
-                        }
-                    }
-                });
-
-
+        for(List<String> Listoflist : listOfLists){
+            if (Listoflist.contains(searchKeyword)){
+                System.out.println(searchKeyword);
+                Collections.swap(Listoflist, 0, Listoflist.indexOf(searchKeyword));
+                for(String keyword : Listoflist){
+                    // Firestore 데이터 가져오기
+                    System.out.println(keyword);
+                    db.collection("searching")
+                            .orderBy("higher_type") // 이름에 따라 정렬
+                            .whereEqualTo("higher_type", searchType) // 베이스메이크업 등
+                            .whereEqualTo("lower_type", second_searchType) // 베이스메이크업 - 파운데이션,컨실러 등
+                            .whereEqualTo("keyword", keyword) // 촉촉함, 수분감 등
+                            .limit(10)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        System.out.println("success");
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            String keyword = document.getString("keyword");
+                                            String name = document.getString("name");
+                                            String image = document.getString("image");
+                                            String type = document.getString("higher_type");
+                                            String user = userDocumentName;
+                                            searchitem data = new searchitem(name,image,keyword,type,user);
+                                            datalist.add(data);
+                                        }
+                                        adapterSecondsearch.notifyDataSetChanged();
+                                    } else {
+                                        Log.d(TAG, "Error getting documents: " + task.getException());
+                                    }
+                                }
+                            });
+                }
+            }
+        }
         adapterSecondsearch = new Adapter_secondsearch(datalist);
         recyclerView.setAdapter(adapterSecondsearch);
-
     }
 
 
 
 }
-
 

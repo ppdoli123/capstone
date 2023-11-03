@@ -10,4 +10,50 @@
         <item>선케어</item>
         <item>남성 쉐이빙</item>
     </string-array>
+    <string-array name="spinner1">
+        <item>파우더/팩트</item>
+        <item>블러셔/치크</item>
+        <item>쿠션</item>
+        <item>쉐이딩/컨투어링</item>
+        <item>프라이머/베이스</item>
+        <item>파운데이션</item>
+        <item>컨실러</item>
+    </string-array>
+    <string-array name="spinner2">
+        <item>립스틱</item>
+        <item>립틴트</item>
+        <item>틴티드립밤</item>
+        <item>립글로스</item>
+    </string-array>
+    <string-array name="spinner3">
+        <item>남성 토너/로션/세트</item>
+        <item>남성 기타</item>
+        <item>남성 올인원</item>
+    </string-array>
+    <string-array name="spinner4">
+        <item>남성 립/아이메이크업</item>
+        <item>남성 베이스메이크업</item>
+    </string-array>
+    <string-array name="spinner5">
+        <item>클렌징 오일</item>
+        <item>클렌징 폼</item>
+        <item>필링/스크럽</item>
+        <item>클렌징워터</item>
+    </string-array>
+    <string-array name="spinner6">
+        <item>남성 토너/로션/세트</item>
+        <item>남성 기타</item>
+        <item>아이크림</item>
+        <item>미스트/오일</item>
+        <item>로션/크림/올인원</item>
+        <item>남성 올인원</item>
+    </string-array>
+    <string-array name="spinner7">
+        <item>선크림/선로션</item>
+        <item>선스틱</item>
+    </string-array>
+    <string-array name="spinner8">
+        <item>남성 쉐이빙폼</item>
+        <item>남성 애프터쉐이브</item>
+    </string-array>
 </resources>
