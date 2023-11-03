@@ -65,7 +65,8 @@ public class secondsearch extends AppCompatActivity {
             "밀착", "밀착력",
             "쫀쫀", "쫀득",
             "되직", "무겁",
-            "부드러운", "부드럽"
+            "부드러운", "부드럽",
+            "촉촉함"
     };
     private void settingList(){
         list = Arrays.asList(wordsArray);
@@ -116,19 +117,50 @@ public class secondsearch extends AppCompatActivity {
         autoCompleteTextView.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line,  list ));
 
-        //HomeFragment 로부터 searchKeyword , searchType 받아오기
+        //HomeFragment 로부터 searchItem , searchType 받아오기
         intent=getIntent();
         String searchKeyword = intent.getStringExtra("searchKeyword");
         String searchType = intent.getStringExtra("searchType");
         String second_searchType = intent.getStringExtra("second_searchType");
         String userDocumentName = intent.getStringExtra("userDocumentName");
-        autoCompleteTextView.setText(searchKeyword);
+        autoCompleteTextView.setText(searchType);
+
+        System.out.println(searchKeyword+searchType+second_searchType);
+
+
 
 
         recyclerView=(RecyclerView) findViewById(R.id.recycle_secondsearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
 
-        // 이중리스토로 검색하기
+
+/*        // Firestore 데이터 가져오기
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Search")
+                .orderBy("type") // 이름에 따라 정렬
+                .whereEqualTo("type", searchItem) // 이름이 "John"인 데이터만 필터링
+                .whereEqualTo("keyword", searchType) // 이름이 "John"인 데이터만 필터링
+                .limit(10)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String name = document.getString("name");
+                                String image = document.getString("image");
+                                String keyword = document.getString("keyword");
+                                String type = document.getString("type");
+                                String user = userDocumentName;
+                                searchitem data = new searchitem(name,image,keyword,type,user);
+                                datalist.add(data);
+                            }
+                            adapterSecondsearch.notifyDataSetChanged();
+                        } else {
+                            Log.d(TAG, "Error getting documents: " + task.getException());
+                        }
+                    }
+                });*/
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         for(List<String> Listoflist : listOfLists){
             if (Listoflist.contains(searchKeyword)){
@@ -137,10 +169,9 @@ public class secondsearch extends AppCompatActivity {
                 for(String keyword : Listoflist){
                     // Firestore 데이터 가져오기
                     System.out.println(keyword);
-                    db.collection("searching")
-                            .orderBy("higher_type") // 이름에 따라 정렬
-                            .whereEqualTo("higher_type", searchType) // 베이스메이크업 등
-                            .whereEqualTo("lower_type", second_searchType) // 베이스메이크업 - 파운데이션,컨실러 등
+                    db.collection("Search")
+                            .orderBy("type") // 이름에 따라 정렬
+                            .whereEqualTo("type", searchType) // 기초 화장품 등
                             .whereEqualTo("keyword", keyword) // 촉촉함, 수분감 등
                             .limit(10)
                             .get()
@@ -153,7 +184,7 @@ public class secondsearch extends AppCompatActivity {
                                             String keyword = document.getString("keyword");
                                             String name = document.getString("name");
                                             String image = document.getString("image");
-                                            String type = document.getString("higher_type");
+                                            String type = document.getString("type");
                                             String user = userDocumentName;
                                             searchitem data = new searchitem(name,image,keyword,type,user);
                                             datalist.add(data);
