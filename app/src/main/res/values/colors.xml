@@ -8,4 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="yellow_1">#878787</color>
+    <color name="semi_white">#F8F8FA</color>
+    <color name="colorItemSelected">#4630EC</color> <!-- 선택된 아이템의 색상 -->
+    <color name="colorItemUnselected">#596068</color> <!-- 선택되지 않은 아이템의 색상 -->
+
 </resources>

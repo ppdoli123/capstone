@@ -86,13 +86,10 @@
             android:layout_height="50dp"
             android:layout_below="@id/editpassword"
             android:layout_marginTop="30dp"
-            android:background="@drawable/buttonshape"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
+            android:background="@drawable/buttonshape_1"
             android:shadowRadius="5"
             android:text="회원가입"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
 
