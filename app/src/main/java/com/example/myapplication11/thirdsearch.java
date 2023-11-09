@@ -387,7 +387,7 @@ public class thirdsearch extends AppCompatActivity {
 
         datalist = new ArrayList<searchreview>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Search")
+        db.collection("search_product")
                 .orderBy("name") // 이름에 따라 정렬
                 .whereEqualTo("name", name) // 이름이 "John"인 데이터만 필터링
                 .limit(10)
@@ -398,9 +398,10 @@ public class thirdsearch extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String name = document.getString("name");
-                                String review = document.getString("review");
-                                String sentence = document.getString("sentence");
-                                searchreview data = new searchreview(name,review,sentence);
+                                String review = document.getString("preprocessing_review");
+                                String positive = document.getString("positive_keyword");
+                                String negative = document.getString("negative_keyword");
+                                searchreview data = new searchreview(name,review,positive, negative); // negative 추가
                                 datalist.add(data);
                                 System.out.println(name);
                             }
@@ -410,21 +411,33 @@ public class thirdsearch extends AppCompatActivity {
                             if (dataSize > 0) {
                                 for (int i = 0; i < dataSize && i < textViews.length; i++) {
                                     String review = datalist.get(i).getReview().toString();
-                                    String sentence = datalist.get(i).getSentence().toString();
+                                    String positiveSentence = datalist.get(i).getPositiveSentence().toString();
+                                    String negativeSentence = datalist.get(i).getNegativeSentence().toString(); // negative 추가
 
                                     SpannableString spannableString = new SpannableString(review);
-                                    int startIndex = review.indexOf(sentence);
 
-                                    if (startIndex != -1) {
-                                        int endIndex = startIndex + sentence.length();
-                                        ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(Color.BLUE);
-                                        spannableString.setSpan(foregroundSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                    // Positive keyword color change
+                                    int positiveStartIndex = review.indexOf(positiveSentence);
+                                    if (positiveStartIndex != -1) {
+                                        int endIndex = positiveStartIndex + positiveSentence.length();
+                                        ForegroundColorSpan positiveForegroundSpan = new ForegroundColorSpan(Color.BLUE);
+                                        spannableString.setSpan(positiveForegroundSpan, positiveStartIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                    }
+
+                                    // Negative keyword color change
+                                    int negativeStartIndex = review.indexOf(negativeSentence); // negative 추가
+                                    if (negativeStartIndex != -1) { // negative 추가
+                                        int endIndex = negativeStartIndex + negativeSentence.length(); // negative 추가
+                                        ForegroundColorSpan negativeForegroundSpan = new ForegroundColorSpan(Color.RED); // negative 추가
+                                        spannableString.setSpan(negativeForegroundSpan, negativeStartIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); // negative 추가
                                     }
 
                                     textViews[i].setText(spannableString);
                                 }
                             } else {
-                               }
+                            }
+
+
 
 
                         } else {
@@ -432,7 +445,6 @@ public class thirdsearch extends AppCompatActivity {
                         }
                     }
                 });
-
         // 하트 출력 부분
         scaleAnimation = new ScaleAnimation(0.7f, 1.0f, 0.7f, 1.0f, Animation.RELATIVE_TO_SELF, 0.7f, Animation.RELATIVE_TO_SELF, 0.7f);
 

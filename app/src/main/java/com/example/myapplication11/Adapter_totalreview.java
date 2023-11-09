@@ -39,14 +39,26 @@ public class Adapter_totalreview extends RecyclerView.Adapter<ViewHolder_totalre
     public void onBindViewHolder(@NonNull ViewHolder_totalreview holder, int position) {
         String review = dataList.get(position).getReview();
         String sentence = dataList.get(position).getSentence();
-
+        String positive = dataList.get(position).getPositiveSentence();
+        String negative = dataList.get(position).getNegativeSentence();
         SpannableString spannableString = new SpannableString(review);
-        int startIndex = review.indexOf(sentence);
-        if(startIndex >= 0) { // 인덱스 값이 0 이상인 경우에만 실행
-            int endIndex = startIndex + sentence.length();
-            ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(Color.BLUE);
-            spannableString.setSpan(foregroundSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Positive keyword color change
+        int positiveStartIndex = review.indexOf(positive);
+        if (positiveStartIndex != -1) {
+            int endIndex = positiveStartIndex + positive.length();
+            ForegroundColorSpan positiveForegroundSpan = new ForegroundColorSpan(Color.BLUE);
+            spannableString.setSpan(positiveForegroundSpan, positiveStartIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
+
+        // Negative keyword color change
+        int negativeStartIndex = review.indexOf(negative); // negative 추가
+        if (negativeStartIndex != -1) { // negative 추가
+            int endIndex = negativeStartIndex + negative.length(); // negative 추가
+            ForegroundColorSpan negativeForegroundSpan = new ForegroundColorSpan(Color.RED); // negative 추가
+            spannableString.setSpan(negativeForegroundSpan, negativeStartIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); // negative 추가
+        }
+
 
         holder.review_totalreview.setText(spannableString);
     }

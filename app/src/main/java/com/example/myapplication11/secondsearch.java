@@ -25,6 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 // 제품 태그검색시 나오는 페이지 adapter과 viewholder 사용
@@ -120,59 +121,28 @@ public class secondsearch extends AppCompatActivity {
         //HomeFragment 로부터 searchItem , searchType 받아오기
         intent=getIntent();
         String searchKeyword = intent.getStringExtra("searchKeyword");
-        String searchType = intent.getStringExtra("searchType");
-        String second_searchType = intent.getStringExtra("second_searchType");
+        String big_category = intent.getStringExtra("searchType");
+        String mid_category = intent.getStringExtra("second_searchType");
         String userDocumentName = intent.getStringExtra("userDocumentName");
-        autoCompleteTextView.setText(searchType);
-
-        System.out.println(searchKeyword+searchType+second_searchType);
-
-
 
 
         recyclerView=(RecyclerView) findViewById(R.id.recycle_secondsearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
 
-
-/*        // Firestore 데이터 가져오기
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Search")
-                .orderBy("type") // 이름에 따라 정렬
-                .whereEqualTo("type", searchItem) // 이름이 "John"인 데이터만 필터링
-                .whereEqualTo("keyword", searchType) // 이름이 "John"인 데이터만 필터링
-                .limit(10)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                String name = document.getString("name");
-                                String image = document.getString("image");
-                                String keyword = document.getString("keyword");
-                                String type = document.getString("type");
-                                String user = userDocumentName;
-                                searchitem data = new searchitem(name,image,keyword,type,user);
-                                datalist.add(data);
-                            }
-                            adapterSecondsearch.notifyDataSetChanged();
-                        } else {
-                            Log.d(TAG, "Error getting documents: " + task.getException());
-                        }
-                    }
-                });*/
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        for(List<String> Listoflist : listOfLists){
-            if (Listoflist.contains(searchKeyword)){
+        HashSet<String> addedProducts = new HashSet<>(); // 중복 상품 추적을 위한 HashSet
+        for (List<String> Listoflist : listOfLists) {
+            if (Listoflist.contains(searchKeyword)) {
                 System.out.println(searchKeyword);
                 Collections.swap(Listoflist, 0, Listoflist.indexOf(searchKeyword));
-                for(String keyword : Listoflist){
+                for (String keyword : Listoflist) {
                     // Firestore 데이터 가져오기
                     System.out.println(keyword);
-                    db.collection("Search")
-                            .orderBy("type") // 이름에 따라 정렬
-                            .whereEqualTo("type", searchType) // 기초 화장품 등
-                            .whereEqualTo("keyword", keyword) // 촉촉함, 수분감 등
+                    db.collection("search_product")
+                            .orderBy("keyword") // 키워드로 정렬
+                            .whereEqualTo("big_category", big_category)
+                            .whereEqualTo("mid_category", mid_category)
+                            .whereEqualTo("keyword", keyword)
                             .limit(10)
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -184,10 +154,15 @@ public class secondsearch extends AppCompatActivity {
                                             String keyword = document.getString("keyword");
                                             String name = document.getString("name");
                                             String image = document.getString("image");
-                                            String type = document.getString("type");
+                                            String type = document.getString("big_category");
                                             String user = userDocumentName;
-                                            searchitem data = new searchitem(name,image,keyword,type,user);
-                                            datalist.add(data);
+                                            String productKey = keyword + name + image + type + user;
+                                            if (!addedProducts.contains(productKey)) {
+                                                searchitem data = new searchitem(name, image, keyword, type, user);
+                                                datalist.add(data);
+                                                addedProducts.add(productKey);
+                                                System.out.println(keyword + name + image + type + user);
+                                            }
                                         }
                                         adapterSecondsearch.notifyDataSetChanged();
                                     } else {
@@ -200,8 +175,8 @@ public class secondsearch extends AppCompatActivity {
         }
         adapterSecondsearch = new Adapter_secondsearch(datalist);
         recyclerView.setAdapter(adapterSecondsearch);
-    }
 
+    }
 
 
 }

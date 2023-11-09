@@ -52,7 +52,7 @@ public class TotalReviewActivity extends AppCompatActivity {
 
         // Firestore 데이터 가져오기
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Search")
+        db.collection("search_product")
                 .orderBy("name") // 이름에 따라 정렬
                 .whereEqualTo("name", name) // 이름이 "John"인 데이터만 필터링
                 .limit(50)
@@ -63,9 +63,10 @@ public class TotalReviewActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String name = document.getString("name");
-                                String review = document.getString("review");
-                                String sentence = document.getString("sentence");
-                                searchreview data = new searchreview(name,review,sentence);
+                                String review = document.getString("preprocessing_review");
+                                String positive = document.getString("positive_keyword");
+                                String negative = document.getString("negative_keyword");
+                                searchreview data = new searchreview(name,review,positive, negative);
                                 datalist.add(data);
                                 System.out.println(data.getReview());
                             }
