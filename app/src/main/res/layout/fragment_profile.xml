@@ -32,25 +32,46 @@
                 android:layout_margin="15sp"
                 android:orientation="vertical"
                 android:weightSum="4">
-                <TextView
-                    android:id="@+id/profile_name"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+                    <TextView
+                        android:id="@+id/profile_name"
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:textSize="20sp"
+                        android:text="Name"/>
+                    <Button
+                        android:id="@+id/btnlogout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:rotationX="0"
+                        android:onClick="logout"
+                        android:text="로그아웃" />
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:text="Name"/>
-                <TextView
-                    android:id="@+id/profile_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:text="Skin type"/>
-
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+                    <TextView
+                        android:id="@+id/profile_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="Skin type"/>
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <ToggleButton
@@ -66,43 +87,37 @@
                     <TextView
                         android:id="@+id/like_num"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:text="TextView"
-                        android:textSize="16sp" />
+                        android:textSize="22sp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2">
-            <Button
-                android:id="@+id/my_review"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="my review"/>
-            <Button
+
+            <TextView
                 android:id="@+id/like_button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:fontFamily="monospace"
                 android:gravity="center"
                 android:onClick="stored_goods"
-                android:text="Stored goods"/>
+                android:text="Stored goods" />
 
         </LinearLayout>
-        <Button
-            android:id="@+id/btnlogout"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_secondsearch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:rotationX="0"
-            android:onClick="logout"
-            android:text="로그아웃" />
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
 </FrameLayout>

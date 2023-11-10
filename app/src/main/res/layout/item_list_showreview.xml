@@ -28,6 +28,13 @@
                 android:textStyle="bold"
                 android:textColor="@color/black"/>
         </LinearLayout>
+        <View
+            android:layout_marginTop="10dp"
+            android:background="@color/yellow_1"
+            android:layout_height="4dp"
+            android:layout_width="330dp"
+            android:layout_gravity="center"/>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
