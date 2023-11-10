@@ -103,6 +103,7 @@ public class secondsearch extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_secondsearch);
         datalist = new ArrayList<searchitem>();
@@ -128,6 +129,8 @@ public class secondsearch extends AppCompatActivity {
 
         recyclerView=(RecyclerView) findViewById(R.id.recycle_secondsearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
+        int totalTasks = listOfLists.size(); // Firestore 작업의 총 개수
+        int completedTasks = 0; // 완료된 Firestore 작업의 개수
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         HashSet<String> addedProducts = new HashSet<>(); // 중복 상품 추적을 위한 HashSet
@@ -153,24 +156,40 @@ public class secondsearch extends AppCompatActivity {
                                         for (QueryDocumentSnapshot document : task.getResult()) {
                                             String keyword = document.getString("keyword");
                                             String name = document.getString("name");
-                                            String image = document.getString("image");
                                             String type = document.getString("big_category");
                                             String user = userDocumentName;
-                                            String productKey = keyword + name + image + type + user;
-                                            if (!addedProducts.contains(productKey)) {
-                                                searchitem data = new searchitem(name, image, keyword, type, user);
-                                                datalist.add(data);
-                                                addedProducts.add(productKey);
-                                                System.out.println(keyword + name + image + type + user);
-                                            }
+                                            FirebaseFirestore db1 = FirebaseFirestore.getInstance();
+                                            db1.collection("Search")
+                                                .whereEqualTo("name", name)
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                String image = document.getString("image");
+                                                                String productKey = keyword + name + image + type + user;
+                                                                if (!addedProducts.contains(productKey)) {
+                                                                    searchitem data = new searchitem(name, image, keyword, type, user);
+                                                                    datalist.add(data);
+                                                                    addedProducts.add(productKey);
+                                                                    System.out.println(keyword + name + image + type + user);
+                                                                }
+                                                            }
+
+                                                            adapterSecondsearch.notifyDataSetChanged();
+                                                        }
+                                                    }});
                                         }
-                                        adapterSecondsearch.notifyDataSetChanged();
+
+
                                     } else {
                                         Log.d(TAG, "Error getting documents: " + task.getException());
                                     }
                                 }
                             });
                 }
+
             }
         }
         adapterSecondsearch = new Adapter_secondsearch(datalist);

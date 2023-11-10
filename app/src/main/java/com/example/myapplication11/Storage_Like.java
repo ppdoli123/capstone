@@ -47,9 +47,7 @@ public class Storage_Like extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_secondsearch);
-        visibility=(LinearLayout) findViewById(R.id.visibility);
-        visibility.setVisibility(View.INVISIBLE);
+        setContentView(R.layout.fragment_profile);
         datalist = new ArrayList<searchitem>();
         // 연관 검색창
         list = new ArrayList<String>();

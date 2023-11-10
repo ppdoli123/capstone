@@ -72,6 +72,7 @@ public class SignupActivity extends AppCompatActivity {
                         //모두 입력했을시 데이터를 담고 회원가입 성향파악 화면으로 돌아감
                         else {
                             if (userpw.equals(userpw_check)) {
+                                System.out.println("넘어가야됨");
                                 Map<String, Object> user = new HashMap<>();
                                 user.put("useremail", useremail);
                                 user.put("username", username);
