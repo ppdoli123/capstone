@@ -155,8 +155,6 @@ public class secondsearch extends AppCompatActivity {
 
         recyclerView=(RecyclerView) findViewById(R.id.recycle_secondsearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
-        int totalTasks = listOfLists.size(); // Firestore 작업의 총 개수
-        int completedTasks = 0; // 완료된 Firestore 작업의 개수
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         HashSet<String> addedProducts = new HashSet<>(); // 중복 상품 추적을 위한 HashSet
