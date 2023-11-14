@@ -91,7 +91,7 @@ public class ProfileFragment extends Fragment {
         profileName = view.findViewById(R.id.profile_name);
         profileType = view.findViewById(R.id.profile_type);
         profileLike = view.findViewById(R.id.like_num);
-        profileImage = view.findViewById(R.id.ImageUpload);
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // Firestore에서 userDocumentName을 이용해 DocumentReference 생성

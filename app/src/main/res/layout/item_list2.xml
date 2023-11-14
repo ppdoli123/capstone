@@ -18,11 +18,15 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/ic_person"/>
+
         <TextView
             android:id="@+id/itemtitle_thirdsearch"
             android:layout_width="100dp"
-            android:layout_height="15dp"
-            android:text="아이템1"/>
+            android:layout_height="20dp"
+            android:fontFamily="@font/noto_sans_bold"
+            android:text="아이템1"
+            android:textSize="12sp"
+            android:gravity="center"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

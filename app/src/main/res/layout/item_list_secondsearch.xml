@@ -24,31 +24,37 @@
             android:gravity="center_vertical"
             android:padding="10dp"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/itemtitle_secondsearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/noto_sans_bold"
+                android:text="피지오겔 토너"
                 android:textSize="18dp"
-                android:textStyle="bold"
-                android:text="피지오겔 토너"/>
+                android:textStyle="bold" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/tag_secondsearch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/noto_sans"
+                    android:text="# "
                     android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:text="# "/>
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/itemtag_secondsearch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/noto_sans"
+                    android:text="5.0"
                     android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:text="5.0"/>
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

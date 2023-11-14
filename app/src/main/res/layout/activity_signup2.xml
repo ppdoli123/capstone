@@ -10,9 +10,10 @@
         android:id="@+id/txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="당신의 피부타입은 어떤가요?"
-        android:gravity="center"
         android:layout_marginBottom="10dp"
+        android:fontFamily="@font/noto_sans"
+        android:gravity="center"
+        android:text="당신의 피부타입은 어떤가요?"
         android:textColor="#009294" />
 
     <RadioGroup
@@ -26,18 +27,21 @@
             android:id="@+id/radioButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans_bold"
             android:text="웜톤" />
 
         <RadioButton
             android:id="@+id/radioButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans_bold"
             android:text="쿨톤" />
 
         <RadioButton
             android:id="@+id/radioButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans_bold"
             android:text="잘 모르겠습니다" />
     </RadioGroup>
 
@@ -45,12 +49,13 @@
         android:id="@+id/t1xt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tip! 특정 타입을 선택하지 않으면 추천이 원활하지 않을 수 있습니다."
-        android:gravity="center"
-        android:textSize="10sp"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="10dp"
-        android:textColor="#009294" />
+        android:fontFamily="@font/noto_sans"
+        android:gravity="center"
+        android:text="Tip! 특정 타입을 선택하지 않으면 추천이 원활하지 않을 수 있습니다."
+        android:textColor="#009294"
+        android:textSize="10sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
