@@ -453,87 +453,93 @@ public class thirdsearch extends AppCompatActivity {
         scaleAnimation.setInterpolator(bounceInterpolator);
 
         button_favorite = findViewById(R.id.button_favorite);
-
-        // Firestore에서 userDocumentName을 이용해 DocumentReference 생성
-        DocumentReference userDocRef = db.collection("users").document(user);
-        // npm install firebase --save 로 설치
-        button_favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                compoundButton.startAnimation(scaleAnimation);
-                if(isChecked==true){
-                    System.out.println("클릭됨");
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    // 기존 배열 가져오기
-                    userDocRef.get().addOnSuccessListener(documentSnapshot -> {
-                        if (documentSnapshot.exists()) {
-                            List<String> existingArray = (List<String>) documentSnapshot.get("Like");
-                            if(existingArray.contains(name)){
-                                System.out.println("이미 저장됨");
-                            }else {
-                                // 새로운 요소 추가
-                                existingArray.add(name);
-                                // 수정된 배열 다시 저장
-                                userDocRef.update("Like", existingArray)
-                                        .addOnSuccessListener(aVoid -> {
-                                            // 요소 추가 성공
-                                        })
-                                        .addOnFailureListener(e -> {
-                                            // 요소 추가 실패
-                                        });
+        // Firestore에서 userDocumenName을 이용해 DocumentReference 생성
+        DocumentReference userDocRef;
+        try {
+            userDocRef = db.collection("users").document(user);
+            button_favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    compoundButton.startAnimation(scaleAnimation);
+                    if(isChecked==true){
+                        System.out.println("클릭됨");
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        // 기존 배열 가져오기
+                        userDocRef.get().addOnSuccessListener(documentSnapshot -> {
+                            if (documentSnapshot.exists()) {
+                                List<String> existingArray = (List<String>) documentSnapshot.get("Like");
+                                if(existingArray.contains(name)){
+                                    System.out.println("이미 저장됨");
+                                }else {
+                                    // 새로운 요소 추가
+                                    existingArray.add(name);
+                                    // 수정된 배열 다시 저장
+                                    userDocRef.update("Like", existingArray)
+                                            .addOnSuccessListener(aVoid -> {
+                                                // 요소 추가 성공
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                // 요소 추가 실패
+                                            });
+                                }
                             }
-                        }
-                    });
-                }else{
-                    System.out.println("클릭안됨");// 기존 배열 가져오기
-                    userDocRef.get().addOnSuccessListener(documentSnapshot -> {
-                        if (documentSnapshot.exists()) {
-                            List<String> existingArray = (List<String>) documentSnapshot.get("Like");
+                        });
+                    }else{
+                        System.out.println("클릭안됨");// 기존 배열 가져오기
+                        userDocRef.get().addOnSuccessListener(documentSnapshot -> {
+                            if (documentSnapshot.exists()) {
+                                List<String> existingArray = (List<String>) documentSnapshot.get("Like");
 
-                            // 삭제할 요소의 인덱스 찾기
-                            int indexToRemove = existingArray.indexOf(name);
-                            if (indexToRemove >= 0) {
-                                existingArray.remove(indexToRemove);
+                                // 삭제할 요소의 인덱스 찾기
+                                int indexToRemove = existingArray.indexOf(name);
+                                if (indexToRemove >= 0) {
+                                    existingArray.remove(indexToRemove);
 
-                                // 수정된 배열 다시 저장
-                                userDocRef.update("Like", existingArray)
-                                        .addOnSuccessListener(aVoid -> {
-                                            // 요소 삭제 성공
-                                        })
-                                        .addOnFailureListener(e -> {
-                                            // 요소 삭제 실패
-                                        });
+                                    // 수정된 배열 다시 저장
+                                    userDocRef.update("Like", existingArray)
+                                            .addOnSuccessListener(aVoid -> {
+                                                // 요소 삭제 성공
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                // 요소 삭제 실패
+                                            });
+                                }
                             }
-                        }
-                    });
+                        });
 
+                    }
                 }
-            }
-        });
+            });
 
-        // 이미 좋아요 등록을 했다면 눌려있게 만들기
+            // 이미 좋아요 등록을 했다면 눌려있게 만들기
 
-        // DocumentReference로부터 데이터를 읽어오는 작업 실행
-        userDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document != null && document.exists()) {
-                        System.out.println(document.get("Like"));
-                        String str = document.get("Like").toString();
-                        System.out.println(str.contains("123"));
-                        if(str.contains(name)){
-                            button_favorite.setChecked(true);
+            // DocumentReference로부터 데이터를 읽어오는 작업 실행
+            userDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document != null && document.exists()) {
+                            System.out.println(document.get("Like"));
+                            String str = document.get("Like").toString();
+                            System.out.println(str.contains("123"));
+                            if(str.contains(name)){
+                                button_favorite.setChecked(true);
+                            }
+                        } else {
+                            Log.d(TAG, "No such document");
                         }
                     } else {
-                        Log.d(TAG, "No such document");
+                        Log.d(TAG, "get failed with ", task.getException());
                     }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
                 }
-            }
-        });
+            });
+        }
+        catch (NullPointerException e){
+
+        }
+
+
 
         // 좋아요 버튼을 누르면 user에 등록 되고 한번 더 누르면 삭제 되게 만들기
 
