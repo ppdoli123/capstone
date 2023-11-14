@@ -65,6 +65,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:gravity="center_vertical"
+                        android:textSize="20sp"
                         android:text="Skin type"/>
                 </LinearLayout>
                 <LinearLayout
@@ -91,7 +92,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:text="TextView"
-                        android:textSize="22sp" />
+                        android:textSize="20sp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

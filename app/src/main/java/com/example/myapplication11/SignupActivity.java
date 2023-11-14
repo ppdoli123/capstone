@@ -63,7 +63,7 @@ public class SignupActivity extends AppCompatActivity {
                     AlertDialog.Builder dialog = new AlertDialog.Builder(SignupActivity.this);
                     dialog.setIcon(R.mipmap.ic_launcher);
                     dialog.setTitle("알림");
-                    dialog.setMessage("이름과 이메일을 입력하세요.");
+                    dialog.setMessage("아이디를 입력하세요.");
                     dialog.setNegativeButton("확인", null);
                     dialog.show();
                 } else {
@@ -84,14 +84,14 @@ public class SignupActivity extends AppCompatActivity {
                                             AlertDialog.Builder dialog = new AlertDialog.Builder(SignupActivity.this);
                                             dialog.setIcon(R.mipmap.ic_launcher);
                                             dialog.setTitle("알림");
-                                            dialog.setMessage("이미 사용 중인 이메일입니다.");
+                                            dialog.setMessage("이미 사용 중인 아이디입니다.");
                                             dialog.setNegativeButton("확인", null);
                                             dialog.show();
                                         } else {
                                             AlertDialog.Builder dialog = new AlertDialog.Builder(SignupActivity.this);
                                             dialog.setIcon(R.mipmap.ic_launcher);
                                             dialog.setTitle("알림");
-                                            dialog.setMessage("사용 가능한 이메일입니다.");
+                                            dialog.setMessage("사용 가능한 아이디입니다.");
                                             dialog.setNegativeButton("확인", null);
                                             dialog.show();
 
