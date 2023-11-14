@@ -5,15 +5,23 @@ import static android.content.ContentValues.TAG;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication11.databinding.FragmentHomeBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FieldPath;
@@ -69,6 +77,8 @@ public class secondsearch extends AppCompatActivity {
             "부드러운", "부드럽",
             "촉촉함"
     };
+    private FragmentHomeBinding binding;
+
     private void settingList(){
         list = Arrays.asList(wordsArray);
     }
@@ -100,6 +110,10 @@ public class secondsearch extends AppCompatActivity {
     List<List<String>> listOfLists = Arrays.asList(List1,List2,List3,List4,List5,List6,List7,List8,List9,List10,
             List11,List12,List13,List14,List15,List16,List17,List18,List19,List20,List21,List22,List23,List24,list4);
 
+        // 검색 버튼
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +139,19 @@ public class secondsearch extends AppCompatActivity {
         String big_category = intent.getStringExtra("searchType");
         String mid_category = intent.getStringExtra("second_searchType");
         String userDocumentName = intent.getStringExtra("userDocumentName");
-
+        // 검색 버튼
+        ImageButton button_secondsearch = findViewById(R.id.button_secondsearch);
+        button_secondsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), secondsearch.class);
+                intent.putExtra("searchKeyword",autoCompleteTextView.getText().toString());
+                intent.putExtra("searchType",big_category);
+                intent.putExtra("second_searchType",mid_category);
+                intent.putExtra("userDocumentName", userDocumentName); // secondsearch로 이름 전달합니다.
+                startActivity(intent);
+            }
+        });
 
         recyclerView=(RecyclerView) findViewById(R.id.recycle_secondsearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
