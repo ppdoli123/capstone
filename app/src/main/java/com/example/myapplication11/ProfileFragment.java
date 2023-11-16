@@ -130,31 +130,39 @@ public class ProfileFragment extends Fragment {
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
                         // Firestore 데이터 가져오기
-                        for (String name : existingArray) {
-                            db.collection("Search")
-                                    .whereEqualTo("name", name)
-                                    .limit(1)
-                                    .get()
-                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if (task.isSuccessful()) {
-                                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                                    String name = document.getString("name");
-                                                    String image = document.getString("image");
-                                                    String keyword = document.getString("keyword");
-                                                    String type = document.getString("type");
-                                                    String user = userDocumentName;
-                                                    searchitem data = new searchitem(name, image, keyword, type, user);
-                                                    datalist.add(data);
+                        try {
+                            for (String name : existingArray) {
+
+                                db.collection("Search")
+                                        .whereEqualTo("name", name)
+                                        .limit(1)
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                                        String name = document.getString("name");
+                                                        String image = document.getString("image");
+                                                        String keyword = document.getString("keyword");
+                                                        String type = document.getString("type");
+                                                        String user = userDocumentName;
+                                                        searchitem data = new searchitem(name, image, keyword, type, user);
+                                                        datalist.add(data);
+                                                    }
+                                                    adapterSecondsearch.notifyDataSetChanged();
+                                                } else {
+                                                    Log.d(TAG, "Error getting documents: " + task.getException());
                                                 }
-                                                adapterSecondsearch.notifyDataSetChanged();
-                                            } else {
-                                                Log.d(TAG, "Error getting documents: " + task.getException());
                                             }
-                                        }
-                                    });
-                        }
+                                        });
+                            }
+                        }catch (NullPointerException e) {
+                                // Null 예외 처리
+                            profileType.setText("");
+                            Log.e(TAG, "existingArray is null", e);
+                            }
+
 
                         adapterSecondsearch = new Adapter_secondsearch(datalist);
                         recyclerView.setAdapter(adapterSecondsearch);
