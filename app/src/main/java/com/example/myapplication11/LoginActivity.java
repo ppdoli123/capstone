@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Firestore에서 이메일과 비밀번호 확인
                 mFirestore.collection("users")
-                        .whereEqualTo("useremail", email)
+                        .whereEqualTo("username", email)
                         .whereEqualTo("password", password)
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

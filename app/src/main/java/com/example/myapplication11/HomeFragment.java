@@ -273,11 +273,13 @@ public class HomeFragment extends Fragment {
 
                         // Get the TextView and set its text
                         TextView preferenceTextView = binding.preference;
-                        preferenceTextView.setText(user_preference1 + "," + user_preference2);
+                        TextView preferenceTextView_1 = binding.preference1;
+                        preferenceTextView.setText(user_preference1 + " " + user_preference2);
 
                         if (user_preference1 == null && user_preference2 == null) {
                             // 두 사용자 환경설정이 모두 NULL인 경우 처리
-                            Toast.makeText(getContext(), "사용자 환경설정이 없습니다. 기본 설정을 사용합니다.", Toast.LENGTH_SHORT).show();
+                            preferenceTextView.setText("사용자 환경설정이 없습니다.");
+                            preferenceTextView_1.setText("");
 
                         } else {
                             Task<QuerySnapshot> mainTask = null; // 여기에 null로 초기화를 추가합니다.
