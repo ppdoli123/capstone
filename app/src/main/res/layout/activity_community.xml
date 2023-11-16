@@ -15,22 +15,26 @@
             android:layout_height="3dp"
             android:background="#e0e0e0"
             android:layout_marginBottom="10dp"/>
+
         <TextView
-            android:textColor="@color/black"
             android:id="@+id/title_community"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:text="제목" />
-        <TextView
+            android:fontFamily="@font/noto_sans"
+            android:text="제목"
             android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/text_community"
             android:layout_width="300dp"
             android:layout_height="match_parent"
+            android:fontFamily="@font/noto_sans"
+            android:text="내용"
+            android:textColor="@color/black"
             android:textSize="15dp"
-            android:textStyle="normal"
-            android:text="내용" />
+            android:textStyle="normal" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
